@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,40 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
+<style>
+    ul {
+        list-style-type: none;
+        /* Remove bullet points from the list */
+        padding: 0;
+        margin: 0;
+        display: flex;
+        /* Makes the list items display horizontally */
+        justify-content: space-between;
+        /* Distribute items evenly */
+    }
+
+    ul li {
+        display: inline;
+        /* Ensures each list item appears next to each other */
+    }
+
+    ul li a {
+        text-decoration: none;
+        padding: 10px 15px;
+        /* Optional: adds padding around the links */
+        display: block;
+        /* Makes the link a block to click the entire area */
+    }
+
+    ul li input {
+        padding: 5px;
+        margin-top: 8px;
+        /* Aligns the input field vertically with the other items */
+    }
+</style>
+
 <body>
+
 
     <div class="container">
         <div class="sidebar">
@@ -52,4 +86,5 @@
     </div>
 
 </body>
+
 </html>
