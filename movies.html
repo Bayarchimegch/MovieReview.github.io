@@ -3,85 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product List</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .search-bar {
-            margin-bottom: 20px;
-        }
-        .product-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .product {
-            border: 1px solid #ccc;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-        }
-        .product h3 {
-            margin: 10px 0;
-        }
-        .product p {
-            color: #555;
-        }
-    </style>
+    <title>Movies</title>
+    <link rel="stylesheet" href="movies.css">
 </head>
 <body>
-    <h1>Product List</h1>
-    <div class="search-bar">
-        <label for="searchInput">Search:</label>
-        <input type="text" id="searchInput" placeholder="Type to filter products...">
-    </div>
-    <div class="product-list" id="productList">
-        <!-- Products will be rendered here -->
+    <div class="background">
+        <header>
+            
+            <h1>Movie Listings</h1>
+            <div class="filter">
+                <label for="genre">Filter by Genre: </label>
+                <select id="genre" onchange="filterMovies()">
+                    <option value="all">All</option>
+                    <option value="action">Action</option>
+                    <option value="comedy">Comedy</option>
+                    <option value="drama">Drama</option>
+                    <option value="horror">Horror</option>
+                    <option value="romance">Romance</option>
+                    <option value="sci-fi">Sci-Fi</option>
+                    <option value="thriller">Thriller</option>
+                    <option value="documentary">Documentary</option>
+                    <option value="animation">Animation</option>
+                </select>
+            </div>
+        </header>
+        <div class="container">
+            <div class="movie-list">
+                <div class="movie" data-genre="action">
+                    <h2>Action Movie 1</h2>
+                    <p>Description...</p>
+                </div>
+                <div class="movie" data-genre="comedy">
+                    <h2>Comedy Movie 1</h2>
+                    <p>Description...</p>
+                </div>
+                <div class="movie" data-genre="sci-fi">
+                    <h2>Sci-Fi Movie 1</h2>
+                    <p>Description...</p>
+                </div>
+                <div class="movie" data-genre="thriller">
+                    <h2>Thriller Movie 1</h2>
+                    <p>Description...</p>
+                </div>
+                <div class="movie" data-genre="documentary">
+                    <h2>Documentary 1</h2>
+                    <p>Description...</p>
+                </div>
+                <div class="movie" data-genre="animation">
+                    <h2>Animation Movie 1</h2>
+                    <p>Description...</p>
+                </div>
+                <!-- Add more movies here -->
+            </div>
+        </div>
     </div>
 
     <script>
-        // Data for products
-        const products = [
-            { name: "Laptop", category: "Electronics", price: 1000 },
-            { name: "Phone", category: "Electronics", price: 700 },
-            { name: "Shoes", category: "Fashion", price: 50 },
-            { name: "Watch", category: "Accessories", price: 150 },
-            { name: "Headphones", category: "Electronics", price: 200 },
-            { name: "T-Shirt", category: "Fashion", price: 25 },
-        ];
+        function filterMovies() {
+            var genre = document.getElementById("genre").value;
+            var movies = document.getElementsByClassName("movie");
 
-        // Render products
-        const productList = document.getElementById('productList');
-        const searchInput = document.getElementById('searchInput');
-
-        function renderProducts(filter = '') {
-            productList.innerHTML = ''; // Clear the product list
-            const filteredProducts = products.filter(product =>
-                product.name.toLowerCase().includes(filter.toLowerCase()) ||
-                product.category.toLowerCase().includes(filter.toLowerCase())
-            );
-
-            filteredProducts.forEach(product => {
-                const productDiv = document.createElement('div');
-                productDiv.classList.add('product');
-                productDiv.innerHTML = `
-                    <h3>${product.name}</h3>
-                    <p>Category: ${product.category}</p>
-                    <p>Price: $${product.price}</p>
-                `;
-                productList.appendChild(productDiv);
-            });
+            for (var i = 0; i < movies.length; i++) {
+                if (genre === "all" || movies[i].dataset.genre === genre) {
+                    movies[i].style.display = "block";
+                } else {
+                    movies[i].style.display = "none";
+                }
+            }
         }
-
-        // Initial rendering
-        renderProducts();
-
-        // Add event listener for search input
-        searchInput.addEventListener('input', (event) => {
-            renderProducts(event.target.value);
-        });
     </script>
 </body>
 </html>
