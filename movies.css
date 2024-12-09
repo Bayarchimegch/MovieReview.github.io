@@ -1,72 +1,132 @@
-body {
+/* Global Reset */
+* {
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
-    height: 100vh;
-    overflow: hidden;
+    box-sizing: border-box;
 }
 
-.background {
-    background-image: url('https://looktv.mn/RTEFacade/images/attachments/contentweb_background.jpg'); /* Replace with your image path */
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
 }
 
-header {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255, 43, 43, 0.8);
-    color: #fff;
-    padding: 15px 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+h1 {
     text-align: center;
+    margin: 20px 0;
+    font-size: 2em;
+    color: #444;
 }
 
-.filter {
-    margin-top: 15px;
-}
-
+/* Main Container: Flexbox Layout */
 .container {
+    display: flex;
     width: 100%;
-    max-width: 800px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    min-height: 80vh; /* Ensure content fills at least 80% of the viewport height */
 }
 
+/* Left Section: Categories */
+.categories {
+    width: 25%;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.categories h3 {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+#category-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#category-list li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+#category-list li:hover {
+    background-color: #f1f1f1;
+}
+
+/* Right Section: Movies */
 .movie-list {
+    width: 75%;
+    padding: 20px;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    justify-content: flex-start; /* Align movies from the start */
 }
 
+/* Individual Movie Cards */
 .movie {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 15px;
+    background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 30%; /* 3 items per row */
+    padding: 10px;
+    text-align: center;
     transition: transform 0.3s ease;
 }
 
 .movie:hover {
-    transform: scale(1.05);
+    transform: translateY(-5px); /* Slight lift effect on hover */
 }
 
+.movie img {
+    width: 100%;
+    border-radius: 8px;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* Movie Titles */
 .movie h2 {
-    margin: 0 0 10px;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #444;
 }
 
+/* Movie Description */
 .movie p {
-    margin: 0;
+    color: #555;
+    font-size: 0.9em;
+}
+
+/* Responsive Design: Adjust layout for smaller screens */
+@media (max-width: 1024px) {
+    .categories {
+        width: 30%;
+    }
+
+    .movie {
+        width: 45%; /* 2 items per row */
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack categories and movie list on smaller screens */
+    }
+
+    .categories {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .movie-list {
+        width: 100%;
+    }
+
+    .movie {
+        width: 100%; /* 1 item per row on mobile */
+    }
 }
