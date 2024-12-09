@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movies</title>
     <link rel="stylesheet" href="movies.css">
 </head>
+
 <body>
     <div class="background">
         <header>
-            
             <h1>Movie Listings</h1>
             <div class="filter">
                 <label for="genre">Filter by Genre: </label>
@@ -28,30 +29,42 @@
             </div>
         </header>
         <div class="container">
+            <div class="categories">
+                <h3>Categories</h3>
+                <ul id="category-list">
+                    <!-- Categories will be dynamically added here -->
+                </ul>
+            </div>
             <div class="movie-list">
                 <div class="movie" data-genre="action">
+                    <img src="action-movie.jpg" alt="Action Movie" />
                     <h2>Action Movie 1</h2>
-                    <p>Description...</p>
+                    <p>Action, High-paced adventure...</p>
                 </div>
                 <div class="movie" data-genre="comedy">
+                    <img src="comedy-movie.jpg" alt="Comedy Movie" />
                     <h2>Comedy Movie 1</h2>
-                    <p>Description...</p>
+                    <p>Comedy, Fun and laughter...</p>
                 </div>
                 <div class="movie" data-genre="sci-fi">
+                    <img src="sci-fi-movie.jpg" alt="Sci-Fi Movie" />
                     <h2>Sci-Fi Movie 1</h2>
-                    <p>Description...</p>
+                    <p>Sci-Fi, Futuristic world...</p>
                 </div>
                 <div class="movie" data-genre="thriller">
+                    <img src="thriller-movie.jpg" alt="Thriller Movie" />
                     <h2>Thriller Movie 1</h2>
-                    <p>Description...</p>
+                    <p>Thriller, Suspenseful journey...</p>
                 </div>
                 <div class="movie" data-genre="documentary">
+                    <img src="documentary-movie.jpg" alt="Documentary Movie" />
                     <h2>Documentary 1</h2>
-                    <p>Description...</p>
+                    <p>Documentary, Real-world stories...</p>
                 </div>
                 <div class="movie" data-genre="animation">
+                    <img src="animation-movie.jpg" alt="Animation Movie" />
                     <h2>Animation Movie 1</h2>
-                    <p>Description...</p>
+                    <p>Animation, Family-friendly...</p>
                 </div>
                 <!-- Add more movies here -->
             </div>
@@ -59,6 +72,7 @@
     </div>
 
     <script>
+        // Filter function to hide/show movies
         function filterMovies() {
             var genre = document.getElementById("genre").value;
             var movies = document.getElementsByClassName("movie");
@@ -71,6 +85,23 @@
                 }
             }
         }
+
+        // Dynamically populate the category list (remove duplicates)
+        window.onload = function () {
+            var genres = [
+                "action", "comedy", "drama", "horror", "romance",
+                "sci-fi", "thriller", "documentary", "animation"
+            ];
+            var uniqueGenres = Array.from(new Set(genres)); // Remove duplicates
+            var categoryList = document.getElementById("category-list");
+
+            uniqueGenres.forEach(function (genre) {
+                var listItem = document.createElement("li");
+                listItem.innerText = genre.charAt(0).toUpperCase() + genre.slice(1);
+                categoryList.appendChild(listItem);
+            });
+        }
     </script>
 </body>
+
 </html>
