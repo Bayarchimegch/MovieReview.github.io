@@ -9,67 +9,67 @@
 </head>
 
 <body>
-    <div class="background">
-        <header>
-            <h1>Movie Listings</h1>
-            <div class="filter">
-                <label for="genre">Filter by Genre: </label>
-                <select id="genre" onchange="filterMovies()">
-                    <option value="all">All</option>
-                    <option value="action">Action</option>
-                    <option value="comedy">Comedy</option>
-                    <option value="drama">Drama</option>
-                    <option value="horror">Horror</option>
-                    <option value="romance">Romance</option>
-                    <option value="sci-fi">Sci-Fi</option>
-                    <option value="thriller">Thriller</option>
-                    <option value="documentary">Documentary</option>
-                    <option value="animation">Animation</option>
-                </select>
-            </div>
-        </header>
-        <div class="container">
-            <div class="categories">
-                <h3>Categories</h3>
-                <ul id="category-list">
-                    <!-- Categories will be dynamically added here -->
-                </ul>
-            </div>
-            <div class="movie-list">
-                <div class="movie" data-genre="action">
-                    <img src="action-movie.jpg" alt="Action Movie" />
-                    <h2>Action Movie 1</h2>
-                    <p>Action, High-paced adventure...</p>
-                </div>
-                <div class="movie" data-genre="comedy">
-                    <img src="comedy-movie.jpg" alt="Comedy Movie" />
-                    <h2>Comedy Movie 1</h2>
-                    <p>Comedy, Fun and laughter...</p>
-                </div>
-                <div class="movie" data-genre="sci-fi">
-                    <img src="sci-fi-movie.jpg" alt="Sci-Fi Movie" />
-                    <h2>Sci-Fi Movie 1</h2>
-                    <p>Sci-Fi, Futuristic world...</p>
-                </div>
-                <div class="movie" data-genre="thriller">
-                    <img src="thriller-movie.jpg" alt="Thriller Movie" />
-                    <h2>Thriller Movie 1</h2>
-                    <p>Thriller, Suspenseful journey...</p>
-                </div>
-                <div class="movie" data-genre="documentary">
-                    <img src="documentary-movie.jpg" alt="Documentary Movie" />
-                    <h2>Documentary 1</h2>
-                    <p>Documentary, Real-world stories...</p>
-                </div>
-                <div class="movie" data-genre="animation">
-                    <img src="animation-movie.jpg" alt="Animation Movie" />
-                    <h2>Animation Movie 1</h2>
-                    <p>Animation, Family-friendly...</p>
-                </div>
-                <!-- Add more movies here -->
-            </div>
+    <header>
+        <h1>Movie Listings</h1>
+        <div class="filter">
+            <label for="genre">Filter by Genre: </label>
+            <select id="genre" onchange="filterMovies()">
+                <option value="all">All</option>
+                <option value="action">Action</option>
+                <option value="comedy">Comedy</option>
+                <option value="drama">Drama</option>
+                <option value="horror">Horror</option>
+                <option value="romance">Romance</option>
+                <option value="sci-fi">Sci-Fi</option>
+                <option value="thriller">Thriller</option>
+                <option value="documentary">Documentary</option>
+                <option value="animation">Animation</option>
+            </select>
         </div>
-    </div>
+    </header>
+
+    <main>
+        <aside class="categories">
+            <h3>Categories</h3>
+            <ul id="category-list">
+                <!-- Categories will be dynamically added here -->
+            </ul>
+        </aside>
+
+        <section class="movie-list">
+            <article class="movie" data-genre="action">
+                <img src="action-movie.jpg" alt="Action Movie" />
+                <h2>Action Movie 1</h2>
+                <p>Action, High-paced adventure...</p>
+            </article>
+            <article class="movie" data-genre="comedy">
+                <img src="comedy-movie.jpg" alt="Comedy Movie" />
+                <h2>Comedy Movie 1</h2>
+                <p>Comedy, Fun and laughter...</p>
+            </article>
+            <article class="movie" data-genre="sci-fi">
+                <img src="sci-fi-movie.jpg" alt="Sci-Fi Movie" />
+                <h2>Sci-Fi Movie 1</h2>
+                <p>Sci-Fi, Futuristic world...</p>
+            </article>
+            <article class="movie" data-genre="thriller">
+                <img src="thriller-movie.jpg" alt="Thriller Movie" />
+                <h2>Thriller Movie 1</h2>
+                <p>Thriller, Suspenseful journey...</p>
+            </article>
+            <article class="movie" data-genre="documentary">
+                <img src="documentary-movie.jpg" alt="Documentary Movie" />
+                <h2>Documentary 1</h2>
+                <p>Documentary, Real-world stories...</p>
+            </article>
+            <article class="movie" data-genre="animation">
+                <img src="animation-movie.jpg" alt="Animation Movie" />
+                <h2>Animation Movie 1</h2>
+                <p>Animation, Family-friendly...</p>
+            </article>
+            <!-- Add more movies here -->
+        </section>
+    </main>
 
     <script>
         // Filter function to hide/show movies
