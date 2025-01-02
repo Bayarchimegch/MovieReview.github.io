@@ -5,7 +5,7 @@ import '../components/home-movie.js';
 import '../components/top-movie.js';
 
 document.addEventListener('DOMContentLoaded',()=>{
-    const topMovies = document.getElementById('moviesSelection');
+    const topMovies = document.getElementById('topMoviesSection');
     
     //iterate through movies and create a list of
     movies.forEach(movie=>{
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         topMovies.appendChild(topMovieElement);
     });
 
-    const homeMovies = document.getElementById('homeMovies');
+    const homeMovies = document.getElementById('mainMoviesSection');
 
     moviesList.forEach(movie=>{
         const topMovieElement = document.createElement('home-movie');
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         topMovieElement.setAttribute('rating',movie.rating);
 
         //append the movie to the section
-        topMovies.appendChild(topMovieElement);
+        homeMovies.appendChild(topMovieElement);
     });
 }
 );
