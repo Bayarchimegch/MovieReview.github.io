@@ -1,6 +1,9 @@
 import {movies} from './demoData.js';
 import{moviesList} from './demoData.js';
 
+import '../components/home-movie.js';
+import '../components/top-movie.js';
+
 document.addEventListener('DOMContentLoaded',()=>{
     const topMovies = document.getElementById('moviesSelection');
     
