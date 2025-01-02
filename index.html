@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="indexC.css">
+    <link rel="stylesheet" href="css/indexC.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
@@ -18,75 +19,41 @@
         </nav>
     </header>
     <!-- Popular movies -->
+     <H1 class="movies-title">High rated movies</H1>
      <div class="container">
-        <Section class="new">
-            <article>
-                <img src="images/new.jpg" alt="whatIsNew">
-                    <h3>This is new</h3>
-                    <p>new movie news</p>
-                </img>
-            </article>
-            <article>
-                <img src="images/new.jpg" alt="whatIsNew">
-                    <h3>This is new</h3>
-                    <p>new movie news</p>
-                </img>
-            </article>
-            <article>
-                <img src="images/new.jpg" alt="whatIsNew">
-                    <h3>This is new</h3>
-                    <p>new movie news</p>
-                </img>
-            </article>
+        <Section class="new" id = 'moviesSection'>
+            
         </Section>
      </div>
+     <img class="poster-home" src="/MovieReview.github.io/images/poster-home.jpg">
+
 
      <Section >
-        <H2>Movies</H2>
-        <section class="movies">
-            <Article>
-                <img src="images/poster.jpg" alt="movie_poster">
-                <p>This is movie review</p>
-                <p>This is movie detail</p>
-            </img>
-            </Article>
-            <Article>
-                <img src="images/poster.jpg" alt="movie_poster">
-                <p>This is movie review</p>
-                <p>This is movie detail</p>
-                </img>
-            </Article>
-            <Article>
-                <img src="images/poster.jpg" alt="movie_poster">
-                <p>This is movie review</p>
-                <p>This is movie detail</p>
-            </Article>
-            <Article>
-                <img src="images/poster.jpg" alt="movie_poster">
-                <p>This is movie review</p>
-                <p>This is movie detail</p>
-            </Article>
-            <Article>
-                <img src="images/poster.jpg" alt="movie_poster">
-                <p>This is movie review</p>
-                <p>This is movie detail</p>
-            </Article>
-            <Article>
-                <img src="images/poster.jpg" alt="movie_poster">
-                <p>This is movie review</p>
-                <p>This is movie detail</p>
-            </Article>
+        <H1 class = 'movies-title'>Movies</H2>
+        <section class="movies" id = 'homeMovies'>
+          
         </section>
         
      </Section>
     
     <footer>
-        <ul>
+        <div>
+            <span>&copy2025 KINOchid</span>
+        </div>
+        <div>
+            <img src="images/movie-icon.png" alt="Logo" class="logo">
+        </div>
+        <div>
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+        <!-- <ul>
             <li><a href="terms_and_con.html">privecy policy</a></li>
             <li><a href="about_us.html">About Us</a></li>
             <li><a href="contact.html">Contact Us</a></li>
-          </ul>
+          </ul> -->
     </footer>
-    
 </body>
+<script type="module" src="/js/index.js"></script>
 </html>
