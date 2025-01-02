@@ -1,0 +1,132 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 2em;
+    color: #444;
+}
+
+/* Main Container: Flexbox Layout */
+.container {
+    display: flex;
+    width: 100%;
+    min-height: 80vh; /* Ensure content fills at least 80% of the viewport height */
+}
+
+/* Left Section: Categories */
+.categories {
+    width: 25%;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.categories h3 {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+#category-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#category-list li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+#category-list li:hover {
+    background-color: #f1f1f1;
+}
+
+/* Right Section: Movies */
+.movie-list {
+    width: 75%;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start; /* Align movies from the start */
+}
+
+/* Individual Movie Cards */
+.movie {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 30%; /* 3 items per row */
+    padding: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.movie:hover {
+    transform: translateY(-5px); /* Slight lift effect on hover */
+}
+
+.movie img {
+    width: 100%;
+    border-radius: 8px;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+/* Movie Titles */
+.movie h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+/* Movie Description */
+.movie p {
+    color: #555;
+    font-size: 0.9em;
+}
+
+/* Responsive Design: Adjust layout for smaller screens */
+@media (max-width: 1024px) {
+    .categories {
+        width: 30%;
+    }
+
+    .movie {
+        width: 45%; /* 2 items per row */
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Stack categories and movie list on smaller screens */
+    }
+
+    .categories {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .movie-list {
+        width: 100%;
+    }
+
+    .movie {
+        width: 100%; /* 1 item per row on mobile */
+    }
+}
