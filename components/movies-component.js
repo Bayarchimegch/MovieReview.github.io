@@ -1,56 +1,57 @@
 class MovieList extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-    }
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+  }
 
-    connectedCallback() {
-        // Initial render when the component is connected to the DOM
-        this.render();
-    }
+  connectedCallback() {
+    // Initial render when the component is connected to the DOM
+    this.render();
+  }
 
-    // Function to render movies based on data passed
-    renderMovies(moviesToRender) {
-        const movieListSection = this.shadowRoot.querySelector('.movie-list');
-        movieListSection.innerHTML = ''; // Clear the existing movies
+  // Function to render movies based on data passed
+  renderMovies(moviesToRender) {
+    const movieListSection = this.shadowRoot.querySelector(".movie-list");
+    movieListSection.innerHTML = ""; // Clear the existing movies
 
-        // Check if no movies are available
-        if (moviesToRender.length === 0) {
-            const noResultsMessage = document.createElement('h1');
-            noResultsMessage.textContent = 'Илэрц олдсонгүй.'; // "No results found"
-            movieListSection.appendChild(noResultsMessage);
-        } else {
-            // Add filtered movies to the DOM
-            moviesToRender.forEach(movie => {
-                const movieArticle = document.createElement('article');
-                movieArticle.classList.add('movie');
-                movieArticle.setAttribute('data-genre', movie.genre.join(', '));
+    // Check if no movies are available
+    if (moviesToRender.length === 0) {
+      const noResultsMessage = document.createElement("h1");
+      noResultsMessage.textContent = "Илэрц олдсонгүй.";
+      movieListSection.appendChild(noResultsMessage);
+    } else {
+      // Add filtered movies to the DOM
+      moviesToRender.forEach((movie) => {
+        const movieArticle = document.createElement("article");
+        movieArticle.classList.add("movie");
+        movieArticle.setAttribute("data-genre", movie.genre.join(", "));
 
-                movieArticle.innerHTML = `
+        movieArticle.innerHTML = `
                     <img src="${movie.posterUrl}" alt="${movie.title}" />
                     <h2>${movie.title}</h2>
-                    <p>${movie.genre.join(', ')}</p>
+                    <p>${movie.genre.join(", ")}</p>
                 `;
 
-                // Add click event listener to navigate to details page
-                movieArticle.addEventListener('click', () => {
-                    window.location.href = `movie-detail.html?id=${movie.id}`;
-                });
+        // Add click event listener to navigate to details page
+        movieArticle.addEventListener("click", () => {
+          window.location.href = `movie-detail.html?id=${movie.id}`;
+        });
 
-                movieListSection.appendChild(movieArticle);
-            });
-        }
+        movieListSection.appendChild(movieArticle);
+      });
     }
+  }
 
-    // Set the movies property to trigger re-rendering
-    set movies(moviesData) {
-        this.renderMovies(moviesData);
-    }
+  // Set the movies property to trigger re-rendering
+  set movies(moviesData) {
+    this.setAttribute("movies-data", JSON.stringify(moviesData));
+    this.renderMovies(moviesData);
+  }
 
-    // Template for the component
-    render() {
-        const template = document.createElement('template');
-        template.innerHTML = `
+  // Template for the component
+  render() {
+    const template = document.createElement("template");
+    template.innerHTML = `
             <style>
                 .movie-list {
                     margin-left: 5%;
@@ -97,9 +98,9 @@ class MovieList extends HTMLElement {
             </div>
         `;
 
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
-    }
+    this.shadowRoot.appendChild(template.content.cloneNode(true));
+  }
 }
 
 // Define the custom element
-customElements.define('movie-list', MovieList);
+customElements.define("movie-list-container", MovieList);

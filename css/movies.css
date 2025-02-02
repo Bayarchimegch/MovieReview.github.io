@@ -1,0 +1,84 @@
+/* General Reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Header Styling */
+header nav ul {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 10px 20px;
+  background-color: #333;
+}
+
+header nav ul li {
+  margin: 0 15px;
+}
+
+header nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Main Content Layout */
+.main-content {
+  display: flex;
+  align-items: flex-start; /* Aligns content to the top */
+  padding: 20px;
+}
+
+/* Sidebar (Filter Section) Styling */
+.categories {
+  width: 250px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.genre-filters {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.genre-filters label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.genre-filters input {
+  margin-right: 10px;
+}
+
+/* Movie List Container */
+.movie-list-container {
+  flex-grow: 1; /* Takes up remaining space */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Make sure the layout is responsive */
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column; /* Stacks the sidebar and movie list vertically */
+  }
+
+  .categories {
+    width: 100%; /* Sidebar takes full width on small screens */
+    margin-right: 0;
+  }
+
+  .movie-list-container {
+    margin-top: 20px;
+  }
+}

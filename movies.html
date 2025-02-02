@@ -1,107 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movies</title>
-    <link rel="stylesheet" href="movies.css">
-</head>
+    <link rel="stylesheet" href="css/movies.css" />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
 
-<body>
+  <body>
     <header>
-        <h1>Movie Listings</h1>
-        <div class="filter">
-            <label for="genre">Filter by Genre: </label>
-            <select id="genre" onchange="filterMovies()">
-                <option value="all">All</option>
-                <option value="action">Action</option>
-                <option value="comedy">Comedy</option>
-                <option value="drama">Drama</option>
-                <option value="horror">Horror</option>
-                <option value="romance">Romance</option>
-                <option value="sci-fi">Sci-Fi</option>
-                <option value="thriller">Thriller</option>
-                <option value="documentary">Documentary</option>
-                <option value="animation">Animation</option>
-            </select>
-        </div>
+      <nav>
+        <ul>
+          <li>
+            <a href="index.html"><h1>KINOchid</h1></a>
+          </li>
+          <li><input type="text" placeholder="Search..." /></li>
+          <li><a href="movies.html">Movies</a></li>
+          <li><a href="logIn1.html">LogIn</a></li>
+        </ul>
+      </nav>
     </header>
 
-    <main>
-        <aside class="categories">
-            <h3>Categories</h3>
-            <ul id="category-list">
-                <!-- Categories will be dynamically added here -->
-            </ul>
-        </aside>
+    <main class="main-content">
+      <aside class="categories">
+        <h3>Filter by Genre</h3>
+        <ul class="genre-filters">
+          <label><input type="checkbox" value="action" /> Action</label>
+          <label><input type="checkbox" value="comedy" /> Comedy</label>
+          <label><input type="checkbox" value="drama" /> Drama</label>
+          <label><input type="checkbox" value="horror" /> Horror</label>
+          <label><input type="checkbox" value="romance" /> Romance</label>
+          <label><input type="checkbox" value="sci-fi" /> Sci-Fi</label>
+          <label><input type="checkbox" value="thriller" /> Thriller</label>
+          <label><input type="checkbox" value="crime" /> Crime</label>
+          <label><input type="checkbox" value="fantasy" /> Fantasy</label>
+          <label><input type="checkbox" value="adventure" /> Adventure</label>
+        </ul>
+      </aside>
 
-        <section class="movie-list">
-            <article class="movie" data-genre="action">
-                <img src="action-movie.jpg" alt="Action Movie" />
-                <h2>Action Movie 1</h2>
-                <p>Action, High-paced adventure...</p>
-            </article>
-            <article class="movie" data-genre="comedy">
-                <img src="comedy-movie.jpg" alt="Comedy Movie" />
-                <h2>Comedy Movie 1</h2>
-                <p>Comedy, Fun and laughter...</p>
-            </article>
-            <article class="movie" data-genre="sci-fi">
-                <img src="sci-fi-movie.jpg" alt="Sci-Fi Movie" />
-                <h2>Sci-Fi Movie 1</h2>
-                <p>Sci-Fi, Futuristic world...</p>
-            </article>
-            <article class="movie" data-genre="thriller">
-                <img src="thriller-movie.jpg" alt="Thriller Movie" />
-                <h2>Thriller Movie 1</h2>
-                <p>Thriller, Suspenseful journey...</p>
-            </article>
-            <article class="movie" data-genre="documentary">
-                <img src="documentary-movie.jpg" alt="Documentary Movie" />
-                <h2>Documentary 1</h2>
-                <p>Documentary, Real-world stories...</p>
-            </article>
-            <article class="movie" data-genre="animation">
-                <img src="animation-movie.jpg" alt="Animation Movie" />
-                <h2>Animation Movie 1</h2>
-                <p>Animation, Family-friendly...</p>
-            </article>
-            <!-- Add more movies here -->
-        </section>
+      <section class="movie-list-container">
+        <movie-list-container></movie-list-container>
+      </section>
     </main>
-
-    <script>
-        // Filter function to hide/show movies
-        function filterMovies() {
-            var genre = document.getElementById("genre").value;
-            var movies = document.getElementsByClassName("movie");
-
-            for (var i = 0; i < movies.length; i++) {
-                if (genre === "all" || movies[i].dataset.genre === genre) {
-                    movies[i].style.display = "block";
-                } else {
-                    movies[i].style.display = "none";
-                }
-            }
-        }
-
-        // Dynamically populate the category list (remove duplicates)
-        window.onload = function () {
-            var genres = [
-                "action", "comedy", "drama", "horror", "romance",
-                "sci-fi", "thriller", "documentary", "animation"
-            ];
-            var uniqueGenres = Array.from(new Set(genres)); // Remove duplicates
-            var categoryList = document.getElementById("category-list");
-
-            uniqueGenres.forEach(function (genre) {
-                var listItem = document.createElement("li");
-                listItem.innerText = genre.charAt(0).toUpperCase() + genre.slice(1);
-                categoryList.appendChild(listItem);
-            });
-        }
-    </script>
-</body>
-
+  </body>
+  <script type="module" src="/js/movies.js"></script>
 </html>
