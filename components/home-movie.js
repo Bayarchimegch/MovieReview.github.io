@@ -1,11 +1,11 @@
-class HomeMovie extends HTMLElement{
-    constructor(){
-        super();
-        this.attachShadow({mode: 'open'}); // using shadow DOM for encapsulation
+class HomeMovie extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" }); // using shadow DOM for encapsulation
 
-        //creating a template elements fot the components structure
-        const template = document.createElement('template');
-        template.innerHTML = `
+    //creating a template elements fot the components structure
+    const template = document.createElement("template");
+    template.innerHTML = `
             <style>
                 .movie-item {
                     text-align: center;
@@ -60,62 +60,74 @@ class HomeMovie extends HTMLElement{
             </article>
         `;
 
-        // Attach the template content to the shadow DOM
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
+    // Attach the template content to the shadow DOM
+    this.shadowRoot.appendChild(template.content.cloneNode(true));
+  }
+
+  static get observedAttributes() {
+    return [
+      "id",
+      "title",
+      "description",
+      "releaseYear",
+      "genre",
+      "posterUrl",
+      "rating",
+    ];
+  }
+
+  connectedCallback() {
+    //render when content connected to the dom
+    this.render();
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    // Only re-render if the relevant attributes change
+    if (oldValue !== newValue) {
+      this.render(); // Re-render the component when data changes
     }
+  }
+  render() {
+    const id = this.getAttribute("id");
+    const title = this.getAttribute("title");
+    const description = this.getAttribute("description");
+    const releaseYear = this.getAttribute("releaseYear");
+    const genre = this.getAttribute("genre")
+      ? this.getAttribute("genre").split(",")
+      : [];
+    const posterUrl = this.getAttribute("posterUrl");
+    const rating = this.getAttribute("rating");
 
-    static get observedAttributes() {
-        return ['id','title','description','releaseYear','genre','posterUrl','rating',];
+    // Only render if required attributes are present
+    if (id && title && posterUrl) {
+      const imgElement = this.shadowRoot.querySelector("img");
+      const slotTitle = this.shadowRoot.querySelector('slot[name = "title"]');
+      const slotDescription = this.shadowRoot.querySelector(
+        'slot[name = "description"]'
+      );
+      const descriptionParagraph = this.shadowRoot.querySelector("p");
+
+      imgElement.src = posterUrl;
+      imgElement.alt = title;
+
+      slotTitle.textContent = title;
+      slotDescription.textContent = description;
+      description.textContent = `Release Year: ${releaseYear}, Genre: ${genre.join(
+        ", "
+      )}`;
+      description.textContent += `\nRating: ${rating}`;
+
+      //setting the default value for title and description
+      if (!slotTitle.assignedNodes().length) {
+        slotTitle.textContent = title;
+      }
+
+      if (!slotDescription.assignedNodes().length && description) {
+        descriptionParagraph.textContent = description;
+      }
     }
-
-    connectedCallback() {
-        //render when content connected to the dom
-        this.render();
-    }
-
-    attributeChangedCallback(name, oldValue, newValue) {
-        // Only re-render if the relevant attributes change
-        if (oldValue !== newValue) {
-            this.render(); // Re-render the component when data changes
-        }
-    }
-    render() {
-        const id = this.getAttribute('id');
-        const title = this.getAttribute('title');
-        const description = this.getAttribute('description');
-        const releaseYear = this.getAttribute('releaseYear');
-        const genre = this.getAttribute('genre') ? this.getAttribute('genre').split(',') : [];
-        const posterUrl = this.getAttribute('posterUrl');
-        const rating = this.getAttribute('rating');
-
-        // Only render if required attributes are present
-        if (id && title && posterUrl) {
-            const imgElement = this.shadowRoot.querySelector('img');
-            const slotTitle = this.shadowRoot.querySelector('slot[name = "title"]');
-            const slotDescription = this.shadowRoot.querySelector('slot[name = "description"]');
-            const descriptionParagraph = this.shadowRoot.querySelector('p');
-
-            imgElement.src = posterUrl;
-            imgElement.alt = title;
-
-    
-            slotTitle.textContent = title;
-            slotDescription.textContent = description;
-            description.textContent = `Release Year: ${releaseYear}, Genre: ${genre.join(', ')}`;
-            description.textContent += `\nRating: ${rating}`;
-
-            //setting the default value for title and description
-            if(!slotTitle.assignedNodes().length){
-                slotTitle.textContent = title;
-            }
-
-            if(!slotDescription.assignedNodes().length && description){
-                descriptionParagraph.textContent = description;
-            }
-        }
-    }
-
+  }
 }
 
 // Define the custom element
-customElements.define('home-movie', HomeMovie);
+customElements.define("home-movie", HomeMovie);

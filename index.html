@@ -5,10 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/index.css">
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"> -->
+     <!-- js for getting datas -->
+    <script type="module" src="js/index.js"></script>
+    <!-- wc -->
+    <script type="module" src="./components/header-wc.js"></script>
+    <script type="module" src="./components/footer-wc.js"></script>
     <title>KINOchid</title>
 </head>
 <body>
-    <header>
+    <header-component></header-component>
+    <main>
+
+    <!-- <header>
         <nav>
             <ul>
                 <li><a href="index.html"><h1>KINOchid</h1></a></li>
@@ -19,7 +27,7 @@
 
             </ul>
         </nav>
-    </header>
+    </header> -->
     <!-- Popular movies -->
      <H1 class="movies-title">High rated movies</H1>
      <div class="container">
@@ -37,7 +45,7 @@
         
      </Section>
     
-     <footer>
+     <!-- <footer>
         <div class="footer-content">
             <span>&copy; 2025 KINOchid</span>
             <img src="images/movie-icon.png" alt="Logo" class="logo">
@@ -47,7 +55,8 @@
                 <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
-    </footer>
+    </footer> -->
+    <footer-component></footer-component>
+</main>
 </body>
-<script type="module" src="js/index.js"></script>
 </html>
