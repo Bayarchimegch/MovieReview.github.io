@@ -21,6 +21,18 @@ const getMovieById = async (req, res) => {
   }
 };
 
+const getTopMovies = async (req, res) => {
+  try {
+    const movies = await Movie.getTopMovies(req.params.top);
+    if (!movies || movies.length === 0) {
+      return res.status(404).json({ message: "No movies found" });
+    }
+    res.json(movies);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // ✅ Create a new movie
 const createMovie = async (req, res) => {
   try {
@@ -47,4 +59,10 @@ const deleteMovie = async (req, res) => {
   }
 };
 
-module.exports = { getAllMovies, getMovieById, createMovie, deleteMovie };
+module.exports = {
+  getAllMovies,
+  getMovieById,
+  createMovie,
+  deleteMovie,
+  getTopMovies,
+};

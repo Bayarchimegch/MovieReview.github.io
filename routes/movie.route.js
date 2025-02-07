@@ -102,4 +102,15 @@ router.post("/", MovieController.createMovie);
  */
 router.delete("/:id", MovieController.deleteMovie);
 
+router.get("/top/:top", (req, res) => {
+  const top = parseInt(req.params.top, 10); // Convert the 'top' parameter to an integer
+
+  // Check if 'top' is a valid number
+  if (isNaN(top)) {
+    return res.status(400).json({ message: "Invalid 'top' parameter" });
+  }
+
+  MovieController.getTopMovies(req, res, top); // Pass 'top' to the controller
+});
+
 module.exports = router;

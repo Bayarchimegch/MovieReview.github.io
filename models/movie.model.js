@@ -12,6 +12,15 @@ const getMovieById = async (id) => {
   return result.rows[0];
 };
 
+const getTopMovies = async (top) => {
+  // Using parameterized query to avoid SQL injection, and limit the number of results based on the 'top' argument
+  const result = await pool.query(
+    "SELECT * FROM movies ORDER BY imdb_rating DESC LIMIT $1;",
+    [top]
+  );
+  return result.rows;
+};
+
 // Create a new movie
 const createMovie = async (data) => {
   const {
@@ -85,4 +94,10 @@ const deleteMovie = async (id) => {
   return result.rows[0];
 };
 
-module.exports = { getAllMovies, getMovieById, createMovie, deleteMovie };
+module.exports = {
+  getAllMovies,
+  getMovieById,
+  createMovie,
+  deleteMovie,
+  getTopMovies,
+};

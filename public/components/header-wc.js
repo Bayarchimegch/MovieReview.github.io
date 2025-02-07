@@ -84,8 +84,8 @@ class HeaderComponent extends HTMLElement {
       <header>
         <!-- Logo -->
         <div class="logo">
-          <a href="../html/index.html">
-            <img src="https://i.imgur.com/l40T1lI.png" alt="Logo">
+          <a href="index.html">
+            <img src="../../public/assets/images/logo.png" alt="Logo">
           </a>
         </div>
         
@@ -96,7 +96,7 @@ class HeaderComponent extends HTMLElement {
 
         <!-- Navigation Links -->
         <nav>
-          <a href="../html/movies.html">Movies</a>
+          <a href="movies.html">Movies</a>
           <a href="contact.html">Contacts</a>
         </nav>
 

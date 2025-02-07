@@ -13,6 +13,14 @@
     <title>KINOchid</title>
 </head>
 <body>
+    <script>
+        const topMovies = [];
+        async function getTopMovies() {
+            const response = await fetch('http://localhost:5000/api/movie/top/5');
+            const data = await response.json();
+            this.topMovies= data;
+        }
+    </script>
     <header-component></header-component>
     <main>
 
@@ -33,17 +41,7 @@
         
      </Section>
     
-     <!-- <footer>
-        <div class="footer-content">
-            <span>&copy; 2025 KINOchid</span>
-            <img src="images/movie-icon.png" alt="Logo" class="logo">
-            <div class="social-icons">
-                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-            </div>
-        </div>
-    </footer> -->
+
     <footer-component></footer-component>
 </main>
 </body>
