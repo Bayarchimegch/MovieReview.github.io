@@ -17,7 +17,7 @@ class MovieList extends HTMLElement {
     // Check if no movies are available
     if (moviesToRender.length === 0) {
       const noResultsMessage = document.createElement("h1");
-      noResultsMessage.textContent = "Илэрц олдсонгүй.";
+      noResultsMessage.textContent = "Илэрц олдсонгүй."; // "No results found" in Mongolian
       movieListSection.appendChild(noResultsMessage);
     } else {
       // Add filtered movies to the DOM
@@ -28,12 +28,13 @@ class MovieList extends HTMLElement {
 
         movieArticle.innerHTML = `
                     <img src="${movie.posterUrl}" alt="${movie.title}" />
-                    <h2>${movie.title}</h2>
+                    <h2>${movie.mongolian_title}</h2>
                     <p>${movie.genre.join(", ")}</p>
                 `;
 
         // Add click event listener to navigate to details page
         movieArticle.addEventListener("click", () => {
+          // Use the movie's ID to navigate to the details page
           window.location.href = `movie-detail.html?id=${movie.id}`;
         });
 
@@ -67,6 +68,7 @@ class MovieList extends HTMLElement {
                     border-radius: 8px;
                     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
                     text-align: center;
+                    cursor: pointer;
                 }
 
                 .movie img {
@@ -90,6 +92,12 @@ class MovieList extends HTMLElement {
                 /* Hover effect for movies */
                 .movie:hover {
                     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                }
+
+                .no-movies-message {
+                    text-align: center;
+                    font-size: 1.5rem;
+                    color: #888;
                 }
             </style>
             <div class="movie-list">

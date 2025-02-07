@@ -33,6 +33,15 @@ const getTopMovies = async (req, res) => {
   }
 };
 
+const getGenres = async (res) => {
+  try {
+    const genres = await Movie.getGenres();
+    res.json(genres);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // ✅ Create a new movie
 const createMovie = async (req, res) => {
   try {
@@ -65,4 +74,5 @@ module.exports = {
   createMovie,
   deleteMovie,
   getTopMovies,
+  getGenres,
 };

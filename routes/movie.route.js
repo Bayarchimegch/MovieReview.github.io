@@ -113,4 +113,6 @@ router.get("/top/:top", (req, res) => {
   MovieController.getTopMovies(req, res, top); // Pass 'top' to the controller
 });
 
+router.get("/genre", MovieController.getGenres);
+
 module.exports = router;
