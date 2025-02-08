@@ -3,9 +3,10 @@ const express = require("express");
 const cors = require("cors");
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+const bcrypt = require("bcryptjs");
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 // PostgreSQL connection
 const pool = require("./config/db.js"); // Import database connection

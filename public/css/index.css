@@ -1,63 +1,12 @@
 /* General Reset */
+html {
+  background-color: var(--background);
+}
 body {
   font-family: Arial, sans-serif;
-  margin: 0 auto;
   padding: 0;
-  width: 70%;
-}
-
-/* Header Styling */
-header nav ul {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  list-style: none;
-  padding: 10px 20px;
-  margin: 0;
-  background-color: #333;
-}
-
-header nav ul li {
-  margin: 0 15px;
-}
-
-header nav ul li a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 16px;
-  transition: color 0.3s ease, transform 0.2s ease;
-}
-
-header nav ul li a:hover {
-  color: #00aced;
-}
-
-header nav ul li input {
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  padding: 8px 12px;
-  font-size: 14px;
-  width: 200px;
-  transition: box-shadow 0.3s ease, transform 0.2s ease;
-}
-
-header nav ul li input:focus {
-  outline: none;
-  border-color: #ff2b2b;
-  box-shadow: 0 4px 8px rgba(255, 43, 43, 0.3);
-  transform: scale(1.05);
-}
-
-/* Container Styling */
-.container {
-  margin: 0 auto;
-  background-color: aliceblue;
-  padding: 20px;
-}
-
-.container img {
-  width: 100%;
-  height: auto;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
 /* Movies Section */
@@ -103,9 +52,9 @@ article {
 }
 
 .poster-home {
-  min-width: 96%;
-  max-width: 96%;
-  margin-left: 2%;
+  min-width: 100%;
+  max-width: 100%;
+  border-radius: 15px;
 }
 
 /* Footer Styling */
@@ -114,13 +63,13 @@ footer {
   color: #fff;
   padding: 15px 20px;
   text-align: center;
+  width: 100%;
 }
 
 .footer-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
   margin: 0 auto;
 }
 
