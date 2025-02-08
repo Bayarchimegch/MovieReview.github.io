@@ -22,7 +22,7 @@ header {
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 43, 43, 0.8);
+    background: rgba(155, 17, 30, 0.8); /* Lighter wine red */
     color: #fff;
     padding: 15px 20px;
     border-radius: 8px;
@@ -67,7 +67,7 @@ textarea {
 input[type="text"]:focus,
 input[type="email"]:focus,
 textarea:focus {
-    border-color: #ff2b2b;
+    border-color: #9B111E; /* Lighter wine red */
     outline: none;
 }
 
@@ -76,7 +76,7 @@ textarea {
 }
 
 button {
-    background: #ff2b2b;
+    background: #9B111E; /* Lighter wine red */
     color: #fff;
     border: none;
     padding: 12px 20px;
@@ -87,5 +87,6 @@ button {
 }
 
 button:hover {
-    background: #e62e2e;
+    background: #7e0e17; /* Slightly darker shade on hover */
 }
+
