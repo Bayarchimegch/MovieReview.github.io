@@ -64,9 +64,7 @@ header li a {
 header li a:hover {
     color: var(--primary);
 }
-section {
-    margin-top: 30px;
-} 
+
 .search {
     border: none;
     border-radius: 15px;

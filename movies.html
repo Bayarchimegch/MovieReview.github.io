@@ -7,72 +7,21 @@
     <link rel="stylesheet" href="./public/css/movies.css" />
     <link rel="stylesheet" href="./public/css/color.css" />
     <script type="module" src="./public/js/theme.js"></script>
-    <!-- wc -->
     <script type="module" src="./public/components/header-wc.js"></script>
     <script type="module" src="./public/components/footer-wc.js"></script>
     <script type="module" src="./public/js/movies.js"></script>
-    <style>
-      /* Add some basic styles */
-      .main-content {
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
-      }
-
-      .categories {
-        width: 200px;
-      }
-
-      .genre-filters {
-        list-style-type: none;
-        padding: 0;
-      }
-
-      .genre-filters label {
-        display: block; /* This makes each checkbox appear on a new line */
-        margin-bottom: 5px;
-      }
-
-      .movie-list-container {
-        flex-grow: 1;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 20px;
-      }
-
-      movie-card {
-        border: 1px solid #ddd;
-        padding: 10px;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        text-align: center;
-      }
-
-      movie-card img {
-        width: 100%;
-        height: 300px; /* Fixed height for all images */
-        object-fit: cover; /* Ensures images maintain aspect ratio while covering the container */
-        border-radius: 5px;
-      }
-    </style>
   </head>
 
   <body>
     <header-component></header-component>
 
     <main class="main-content">
-      <!-- Left Sidebar for Genres -->
       <aside class="categories">
         <h3>Киноны төрлөөр хайх</h3>
-        <ul class="genre-filters">
-          <!-- Dynamically generate checkboxes for genres from the API -->
-        </ul>
+        <ul class="genre-filters"></ul>
       </aside>
 
-      <!-- Right Side for Movies -->
-      <section class="movie-list-container">
-        <!-- Dynamically populated movie cards will go here -->
-      </section>
+      <section class="movie-list-container"></section>
     </main>
 
     <footer-component></footer-component>
