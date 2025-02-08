@@ -345,7 +345,7 @@ header nav label{
             <ul class="right">
                 <li class="search"><input type="text" class="search" id="searchInput" placeholder="Хайх"></li> 
                 <li><a href="contact.html">Холбогдох</a></li> 
-                <li id="loginLink"><a href="/htmls/login.html">Нэвтрэх</a></li>
+                <li id="loginLink"><a href="log-in.html">Нэвтрэх</a></li>
             </ul>
             <label for="menu" class="menu"><i class="fa fa-bars"></i></label>
         </nav>   

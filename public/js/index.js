@@ -36,6 +36,7 @@ function displayMovies(movies) {
     const movieElement = document.createElement("home-movie");
     movieElement.setAttribute("id", movie.id);
     movieElement.setAttribute("title", movie.mongolian_title); // Use Mongolian title
+    movieElement.setAttribute("rate", movie.imdb_rating);
     movieElement.setAttribute(
       "posterUrl",
       movie.poster || "./public/assets/images/default-poster.jpg"
@@ -53,7 +54,8 @@ function displayTopMovies(movies) {
   movies.forEach((movie) => {
     const topMovieElement = document.createElement("top-movie");
     topMovieElement.setAttribute("id", movie.id);
-    topMovieElement.setAttribute("title", movie.mongolian_title); // Use Mongolian title
+    topMovieElement.setAttribute("title", movie.mongolian_title);
+    topMovieElement.setAttribute("rate", movie.imdb_rating); // Use Mongolian title
     topMovieElement.setAttribute(
       "posterUrl",
       movie.poster || "./public/assets/images/default-poster.jpg"

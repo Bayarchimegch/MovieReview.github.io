@@ -1,0 +1,47 @@
+<style>
+  .card {
+    display: inline-block;
+    width: 220px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: #000;
+    padding: 10px;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .card .imagee img {
+    width: 100%;
+    max-height: 250px; /* Зургийн өндөр тогтмол */
+    object-fit: contain;
+    display: block;
+  }
+
+  .card h4 {
+    font-size: 16px;
+    height: 30px; /* Өндөр тогтмол */
+    padding: 10px;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Нэг мөрөнд багтахгүй бол ... болно */
+  }
+</style>
+
+<div class="movies-content"></div>
+<a href="info.html?id=${movie.id}" class="card">
+  <div class="imagee">
+    <img
+      src="https://m.media-amazon.com/images/M/MV5BNjJlYmNkZGItM2NhYy00MjlmLTk5NmQtNjg1NmM2ODU4OTMwXkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_SX300.jpg"
+    />
+  </div>
+  <h4>Бөгжний эзэн: Хоёр цамхаг</h4>
+</a>

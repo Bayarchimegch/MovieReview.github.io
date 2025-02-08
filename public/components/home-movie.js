@@ -1,66 +1,123 @@
 class HomeMovie extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" }); // using shadow DOM for encapsulation
+    this.attachShadow({ mode: "open" });
 
-    //creating a template elements fot the components structure
+    // Create template for component structure
     const template = document.createElement("template");
     template.innerHTML = `
-            <style>
-                .movie-item {
-                    text-align: center;
-                    overflow: hidden; /* Hide overflow during hover */
-                    position: relative;
-                    transition: transform 0.3s ease, box-shadow 0.3s ease;
-                    padding: 10px;
-                    border-radius: 8px;
-                    background: #fff;
-                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-                }
+      <style>
+                     .card {
+    display: inline-block;
+    width: 160px; 
+    background-color: var(--secondary);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: var(--textPrimary);
+    padding: 10px;
+}
 
-                .movie-item img {
-                    width: 100%;
-                    max-width: 200px;
-                    height: auto;
-                    border-radius: 8px;
-                    transition: transform 0.3s ease, box-shadow 0.3s ease;
-                }
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
 
-                .movie-item h4 {
-                    margin-top: 8px;
-                    font-size: 16px;
-                    color: #333;
-                }
+.card .imagee img {
+    width: 100%;
+    max-height: 180px; /* 40px-ээр багасгав */
+    object-fit: contain;
+    display: block;
+}
 
-                .movie-item p {
-                    font-size: 14px;
-                    color: #666;
-                    margin-top: 10px;
-                }
+.card h4 {
+    font-size: 16px; /* Анхны хэмжээ */
+    height: 30px;
+    padding: 10px;
+    margin: 0;
+    overflow: hidden;
+    word-wrap: break-word; /* Шилжиж байх үед үг хугарах */
+    word-break: break-word; /* Урт үг болон текстийг дараагийн мөрөнд шилжүүлэх */
+    white-space: normal; /* Текстийг шинэ мөр рүү шилжүүлнэ */
+}
 
-                .movie-item:hover img {
-                    transform: scale(1.1); /* Zoom effect on image */
-                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow effect */
-                }
 
-                .movie-item:hover {
-                    transform: translateY(-5px); /* Slight lift effect */
-                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Add shadow to the whole element */
-                }
+/* ✅ Дэлгэцийн хэмжээнээс хамаарч үсгийн хэмжээ багасгах */
+@media (max-width: 1200px) {
+    .card {
+        max-width: 160px;
+    }
+    .card .imagee img {
+        max-height: 190px;
+    }
+    .card h4 {
+        font-size: 12px; 
+    }
+}
 
-                .movie-item h4:hover {
-                    color: #f39c12; /* Change title color on hover */
-                    cursor: pointer; /* Add a pointer cursor to indicate clickable title */
-                }
-            </style>
-            <article class="movie-item">
-                <img src="" alt="" />
-                <h4><slot name="title"></slot></h4> <!-- Slot for title -->
-                <p><slot name="description"></slot></p> <!-- Slot for description -->
-            </article>
-        `;
+@media (max-width: 992px) {
+    .card {
+        max-width: 140px;
+    }
+    .card .imagee img {
+        max-height: 170px;
+    }
+    .card h4 {
+        font-size: 12px; 
+    }
+}
 
-    // Attach the template content to the shadow DOM
+@media (max-width: 768px) {
+    .card {
+        max-width: 120px;
+    }
+    .card .imagee img {
+        max-height: 150px;
+    }
+    .card h4 {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .card {
+        max-width: 100px;
+    }
+    .card .imagee img {
+        max-height: 130px;
+    }
+    .card h4 {
+        font-size: 10px; 
+    }
+}
+
+@media (max-width: 400px) {
+    .card {
+        max-width: 80px;
+    }
+    .card .imagee img {
+        max-height: 110px;
+    }
+    .card h4 {
+        font-size: 8px; 
+    }
+}
+
+                </style>
+
+      <div class="movies">
+        <a href="#" class="card">
+          <div class="imagee">
+            <img src="" alt="" />
+          </div>
+          <h4></h4> <!-- Movie Title -->
+        </a>
+      </div>
+    `;
+
     this.shadowRoot.appendChild(template.content.cloneNode(true));
   }
 
@@ -77,16 +134,15 @@ class HomeMovie extends HTMLElement {
   }
 
   connectedCallback() {
-    //render when content connected to the dom
     this.render();
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    // Only re-render if the relevant attributes change
     if (oldValue !== newValue) {
-      this.render(); // Re-render the component when data changes
+      this.render(); // Re-render if attributes change
     }
   }
+
   render() {
     const id = this.getAttribute("id");
     const title = this.getAttribute("title");
@@ -100,30 +156,27 @@ class HomeMovie extends HTMLElement {
 
     // Only render if required attributes are present
     if (id && title && posterUrl) {
+      const cardElement = this.shadowRoot.querySelector(".card");
       const imgElement = this.shadowRoot.querySelector("img");
-      const slotTitle = this.shadowRoot.querySelector('slot[name = "title"]');
-      const slotDescription = this.shadowRoot.querySelector(
-        'slot[name = "description"]'
-      );
-      const descriptionParagraph = this.shadowRoot.querySelector("p");
+      const h4Title = this.shadowRoot.querySelector("h4");
+      const pDescription = this.shadowRoot.querySelector("p");
 
       imgElement.src = posterUrl;
       imgElement.alt = title;
-
-      slotTitle.textContent = title;
-      slotDescription.textContent = description;
-      description.textContent = `Release Year: ${releaseYear}, Genre: ${genre.join(
+      h4Title.textContent = title;
+      pDescription.textContent = `${description}\nRelease Year: ${releaseYear}, Genre: ${genre.join(
         ", "
-      )}`;
-      description.textContent += `\nRating: ${rating}`;
+      )}, Rating: ${rating}`;
 
-      //setting the default value for title and description
-      if (!slotTitle.assignedNodes().length) {
-        slotTitle.textContent = title;
+      // Ensure content is correctly rendered
+      if (!h4Title.assignedNodes().length) {
+        h4Title.textContent = title;
       }
 
-      if (!slotDescription.assignedNodes().length && description) {
-        descriptionParagraph.textContent = description;
+      if (!pDescription.assignedNodes().length) {
+        pDescription.textContent = `${description}\nRelease Year: ${releaseYear}, Genre: ${genre.join(
+          ", "
+        )}, Rating: ${rating}`;
       }
     }
   }

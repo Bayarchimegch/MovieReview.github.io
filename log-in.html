@@ -5,17 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Нэвтрэх</title>
     <link rel="stylesheet" href="./public/css/login1.css" />
+    <link rel="stylesheet" href="./public/css/color.css" />
+    <script type="module" src="./public/components/header-wc.js"></script>
   </head>
   <body>
+    <header-component></header-component>
     <div class="background">
       <div class="container">
-        <header><h1>Нэвтрэх</h1></header>
+        <h1>Нэвтрэх</h1>
         <div class="login-form">
           <form action="/submit-contact" method="post">
             <div class="form-group">
               <label for="Майл хаяг">Майл хаяг</label>
               <input
-                type="Майл хаяг"
+                type="email"
                 id="Майл хаяг"
                 placeholder="Майл хаягаа оруулна уу!"
                 required
@@ -31,7 +34,7 @@
                 required
               />
             </div>
-            <a href="./signIn.html">Хаяг байхгүй юм биш биз?</a>
+            <a href="./signup.html">Хаяг байхгүй юм биш биз? Бүртгүүлэх</a>
             <button type="submit">Нэвтрэх</button>
           </form>
         </div>
