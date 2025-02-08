@@ -47,6 +47,10 @@ app.use("/api/movie", movieRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/rating", ratingRoutes);
 
+app.get("/api/config", (req, res) => {
+  res.json({ apiBaseUrl: `http://localhost:${process.env.PORT || 5001}` });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
   console.log(`Swagger UI available at http://localhost:${PORT}/api-docs`);

@@ -114,5 +114,6 @@ router.get("/top/:top", (req, res) => {
 });
 
 router.get("/genre", MovieController.getGenres);
+router.get("/new/:limit", MovieController.getNewMovies);
 
 module.exports = router;

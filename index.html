@@ -1,91 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./public/css/index.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KINOchid</title>
+
+    <link rel="stylesheet" href="./public/css/index.css" />
+    <link rel="stylesheet" href="./public/css/color.css" />
     <script type="module" src="./public/js/index.js"></script>
-    <!-- wc -->
     <script type="module" src="./public/components/header-wc.js"></script>
     <script type="module" src="./public/components/footer-wc.js"></script>
-    <link rel="stylesheet" href="./public/css/color.css">
-    <title>KINOchid</title>
-</head>
-<body>
-    
+  </head>
+  <body>
     <header-component></header-component>
+
     <main>
+      <h1 class="movies-title">High Rated Movies</h1>
+      <div class="container">
+        <section class="high-rated" id="topMoviesSection"></section>
+      </div>
+      <img class="poster-home" src="./public/assets/images/poster-home.jpg" />
 
-    <!-- Popular movies -->
-     <H1 class="movies-title">High rated movies</H1>
-     <div class="container">
-        <Section class="high-rated" id = 'topMoviesSection'>
-            
-        </Section>
-     </div>
-     <img class="poster-home" src="./public/assets/images/poster-home.jpg">
+      <section>
+        <h1 class="movies-title">Movies</h1>
+        <section class="movies" id="mainMoviesSection"></section>
+      </section>
+    </main>
 
-     <Section >
-        <H1 class = 'movies-title'>Movies</H2>
-        <section class="movies" id = 'mainMoviesSection'>
-          
-        </section>
-        
-     </Section>
-    
-
-</main>
-<script>
-    let movies;
-    // Fetch top movies from the backend
-    async function fetchTopMovies() {
-        try {
-            const response = await fetch('http://localhost:5000/api/movie/top/5'); 
-            if (!response.ok) throw new Error('Failed to fetch top movies');
-            const movies = await response.json();
-            displayTopMovies(movies);
-        } catch (error) {
-            console.error('Error fetching top movies:', error);
-        }
-    }
-    async function fetchNewMovies(){
-        try{
-            const response = await fetch('http://localhost:5000/api/movie/new/5');
-            if(!response.ok) throw new Error('Failed to fetch new movies');
-            const movies = await response.json();
-            displayNewMovies(movies);
-        }catch (error) {
-            console.error('Error fetching new movies:', error);
-        }
-    }
-
-    function displayTopMovies(movies) {
-        const section = document.getElementById('topMoviesSection');
-        section.innerHTML = '';
-
-        movies.forEach(movie => {
-            const movieCard = document.createElement('div');
-            movieCard.className = 'movie-card';
-
-            movieCard.innerHTML = `
-                <img src="${movie.poster || './public/assets/images/default-poster.jpg'}" alt="${movie.title}" class="movie-poster" />
-                <h2 class="movie-title">${movie.title}</h2>
-                <p class="movie-rating">Rating: ${movie.imdb_rating}</p>
-            `;
-
-            section.appendChild(movieCard);
-        });
-    }
-    function displayNewMovies(movies) {
-        const section = document.getElementById('mainMoviesSection');
-        section.innerHTML = '';
-    }
-
-
-    // Initialize
-    fetchTopMovies();
-</script>
-
-</body>
-<footer-component></footer-component>
+    <footer-component></footer-component>
+  </body>
 </html>

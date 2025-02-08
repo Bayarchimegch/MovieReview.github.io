@@ -20,6 +20,13 @@ const getTopMovies = async (top) => {
   );
   return result.rows;
 };
+const getNewMovies = async (limit) => {
+  const result = await pool.query(
+    "SELECT * FROM movies ORDER BY released DESC LIMIT $1;",
+    [limit]
+  );
+  return result.rows;
+};
 
 // Create a new movie
 const createMovie = async (data) => {
@@ -114,4 +121,5 @@ module.exports = {
   deleteMovie,
   getTopMovies,
   getGenres,
+  getNewMovies,
 };

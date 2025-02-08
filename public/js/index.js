@@ -1,47 +1,74 @@
-import { movies } from "./demoData/demoData.js";
-import { moviesList } from "./demoData/demoData.js";
+import "../components/home-movie.js"; // Import the home-movie component
+import "../components/top-movie.js"; // Import the top-movie component
 
-import "../components/home-movie.js";
-import "../components/top-movie.js";
+let API_BASE_URL = "http://localhost:5001"; // Set API base URL manually
 
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-    const topMovies = document.getElementById("topMoviesSection");
+// Fetch new Movies
+async function fetchMovies() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/movie/new/6`);
+    if (!response.ok) throw new Error("Failed to fetch movies");
+    const movies = await response.json();
+    displayMovies(movies);
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+  }
+}
 
-    //iterate through movies and create a list of
-    movies.forEach((movie) => {
-      const topMovieElement = document.createElement("top-movie");
-      topMovieElement.setAttribute("id", movie.id);
-      topMovieElement.setAttribute("title", movie.title);
-      topMovieElement.setAttribute("posterUrl", movie.posterUrl);
-      topMovieElement.setAttribute("description", movie.description);
-      topMovieElement.setAttribute("releaseYear", movie.releaseYear);
-      topMovieElement.setAttribute("genre", movie.genre.join(","));
-      topMovieElement.setAttribute("rating", movie.rating);
+// Fetch Top Rated Movies
+async function fetchTopMovies() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/movie/top/5`);
+    if (!response.ok) throw new Error("Failed to fetch top movies");
+    const topMovies = await response.json();
+    displayTopMovies(topMovies);
+  } catch (error) {
+    console.error("Error fetching top movies:", error);
+  }
+}
 
-      //append the movie to the section
-      topMovies.appendChild(topMovieElement);
-    });
+// Display A new movies
+function displayMovies(movies) {
+  const section = document.getElementById("mainMoviesSection");
+  section.innerHTML = ""; // Clear previous content
 
-    const homeMovies = document.getElementById("mainMoviesSection");
+  movies.forEach((movie) => {
+    const movieElement = document.createElement("home-movie");
+    movieElement.setAttribute("id", movie.id);
+    movieElement.setAttribute("title", movie.mongolian_title); // Use Mongolian title
+    movieElement.setAttribute(
+      "posterUrl",
+      movie.poster || "./public/assets/images/default-poster.jpg"
+    );
 
-    moviesList.forEach((movie) => {
-      const topMovieElement = document.createElement("home-movie");
-      topMovieElement.setAttribute("id", movie.id);
-      topMovieElement.setAttribute("title", movie.title);
-      topMovieElement.setAttribute("posterUrl", movie.posterUrl);
-      topMovieElement.setAttribute("description", movie.description);
-      topMovieElement.setAttribute("releaseYear", movie.releaseYear);
-      topMovieElement.setAttribute("genre", movie.genre.join(","));
-      topMovieElement.setAttribute("rating", movie.rating);
+    section.appendChild(movieElement);
+  });
+}
 
-      //append the movie to the section
-      homeMovies.appendChild(topMovieElement);
-    });
-  },
-  document.getElementById("theme-toggle").addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    document.body.classList.toggle("light-mode");
-  })
-);
+// Display Top Movies (just poster and Mongolian title)
+function displayTopMovies(movies) {
+  const section = document.getElementById("topMoviesSection");
+  section.innerHTML = ""; // Clear previous content
+
+  movies.forEach((movie) => {
+    const topMovieElement = document.createElement("top-movie");
+    topMovieElement.setAttribute("id", movie.id);
+    topMovieElement.setAttribute("title", movie.mongolian_title); // Use Mongolian title
+    topMovieElement.setAttribute(
+      "posterUrl",
+      movie.poster || "./public/assets/images/default-poster.jpg"
+    );
+
+    section.appendChild(topMovieElement);
+  });
+}
+
+// ✅ Call the functions directly without fetchConfig()
+fetchMovies();
+fetchTopMovies();
+
+// Theme Toggle
+document.getElementById("theme-toggle")?.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+  document.body.classList.toggle("light-mode");
+});

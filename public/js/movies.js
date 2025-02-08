@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to fetch movies from the API
   async function fetchMovies() {
     try {
-      const response = await fetch("http://localhost:5000/api/movie/");
+      const response = await fetch("http://localhost:5001/api/movie/");
       if (!response.ok) throw new Error("Failed to fetch movies");
       movies = await response.json();
       filterMovies(); // Filter movies right after fetching

@@ -42,6 +42,29 @@ const getGenres = async (res) => {
   }
 };
 
+const getNewMovies = async (req, res) => {
+  try {
+    // Extract limit from the route params
+    const limit = parseInt(req.params.limit, 10);
+    if (isNaN(limit)) {
+      return res.status(400).json({ message: "Invalid 'limit' parameter" });
+    }
+
+    // Fetch new movies using the limit value
+    const movies = await Movie.getNewMovies(limit);
+
+    if (!movies || movies.length === 0) {
+      return res.status(404).json({ message: "No new movies found" });
+    }
+
+    // Return the movies as a JSON response
+    res.json(movies);
+  } catch (error) {
+    // Handle any errors
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // ✅ Create a new movie
 const createMovie = async (req, res) => {
   try {
@@ -75,4 +98,5 @@ module.exports = {
   deleteMovie,
   getTopMovies,
   getGenres,
+  getNewMovies,
 };
