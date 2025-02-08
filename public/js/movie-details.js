@@ -4,9 +4,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (movieId) {
     try {
-      // Fetch the movie from the backend using the movieId
       const response = await fetch(
-        `http://localhost:5000/api/movie/${movieId}`
+        `http://localhost:5001/api/movie/${movieId}`
       );
       if (!response.ok) {
         throw new Error("Movie not found");
@@ -14,28 +13,27 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const movie = await response.json();
 
-      // Update the HTML with movie details
       document.querySelector(".movie-poster").src = movie.poster;
       document.querySelector(".movie-poster").alt = movie.title;
       document.querySelector(".movie-title").textContent =
         movie.mongolian_title;
-      document.querySelector(".type-value").textContent = movie.type || "-";
-      document.querySelector(".year-value").textContent = movie.released;
-      document.querySelector(".runtime-value").textContent = movie.runtime;
-      document.querySelector(".imdb-value").textContent =
-        movie.imdbRating || "N/A"; // Assuming IMDb rating is available
-      document.querySelector(".user-value").textContent =
-        movie.userRating || "-"; // User rating, defaults to "-" if unavailable
+      document.querySelector(".type-value").textContent = movie.type || "Movie";
+      document.querySelector(".year-value").textContent = movie.year;
+      document.querySelector(".runtime-value").textContent = formatRuntime(
+        movie.runtime
+      );
+      document.querySelector(".imdb-value").innerHTML = `⭐ ${
+        movie.imdbRating || "N/A"
+      }`;
+      document.querySelector(".user-value").innerHTML = movie.userRating
+        ? `⭐ ${movie.userRating}`
+        : "☆";
 
-      // Optional: Fetch reviews related to the current movie
       const movieReviews = await fetchReviews(movieId);
-
-      // Insert reviews dynamically or display 'No reviews yet'
       const reviewsContainer = document.querySelector(".reviews-container");
-      reviewsContainer.innerHTML = ""; // Clear existing reviews
+      reviewsContainer.innerHTML = "";
 
       if (movieReviews.length > 0) {
-        // Insert reviews
         movieReviews.forEach((review) => {
           const reviewElement = document.createElement("div");
           reviewElement.classList.add("review");
@@ -49,10 +47,9 @@ document.addEventListener("DOMContentLoaded", async () => {
           reviewsContainer.appendChild(reviewElement);
         });
       } else {
-        // No reviews available, display message
         const noReviewsMessage = document.createElement("h1");
         noReviewsMessage.classList.add("no-reviews");
-        noReviewsMessage.textContent = "Одоохондоо сэтгэгдэл алга"; // "No reviews yet"
+        noReviewsMessage.textContent = "Одоохондоо сэтгэгдэл алга";
         reviewsContainer.appendChild(noReviewsMessage);
       }
     } catch (error) {
@@ -65,20 +62,48 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// Function to fetch reviews for a specific movie (optional)
+function formatRuntime(runtime) {
+  if (!runtime) return "-";
+  const parts = runtime.split(":");
+  const hours = parseInt(parts[0], 10);
+  const minutes = parseInt(parts[1], 10);
+  return `${hours}h ${minutes}min`;
+}
+
 async function fetchReviews(movieId) {
   try {
     const response = await fetch(
-      `http://localhost:5000/api/reviews/${movieId}`
+      `http://localhost:5001/api/reviews/${movieId}`
     );
     if (!response.ok) {
       throw new Error("Error fetching reviews");
     }
-
-    const reviews = await response.json();
-    return reviews;
+    return await response.json();
   } catch (error) {
     console.error(error);
-    return []; // Return empty array if there's an error fetching reviews
+    return [];
   }
 }
+
+// Apply Theme
+const applyTheme = () => {
+  document.body.style.backgroundColor = getComputedStyle(
+    document.documentElement
+  ).getPropertyValue("--background");
+  document.body.style.color = getComputedStyle(
+    document.documentElement
+  ).getPropertyValue("--textPrimary");
+  document.body.style.paddingTop = "60px"; // Add top padding to avoid overlap with header
+};
+
+document.addEventListener("DOMContentLoaded", applyTheme);
+window
+  .matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", applyTheme);
+
+const themeToggle = document.getElementById("theme-toggle");
+themeToggle?.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+  document.body.classList.toggle("light-mode");
+  applyTheme();
+});
