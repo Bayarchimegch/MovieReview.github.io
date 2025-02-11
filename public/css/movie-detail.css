@@ -10,7 +10,7 @@ body {
   margin-right: 10%;
 }
 
-/* .movie-detail {
+.movie-detail {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -125,4 +125,4 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   background-color: #0056b3;
-} */
+}

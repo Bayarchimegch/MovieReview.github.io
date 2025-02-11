@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="mn">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,24 +12,22 @@
       <div class="container">
         <h1>Бүртгүүлэх</h1>
         <div class="login-form">
-          <form action="/submit-registration" method="post">
+          <form id="registerForm" action="#" method="post">
             <div class="form-group">
               <label for="name">Нэр</label>
               <input type="text" id="name" placeholder="Таны нэр" required />
             </div>
 
             <div class="form-group">
-              <label for="phone">Утасны дугаар</label>
+              <label for="email">Майл хаяг</label>
               <input
-                type="tel"
-                id="phone"
-                placeholder="Утасны дугаараа оруулна уу"
+                type="email"
+                id="email"
+                placeholder="Майл хаягаа оруулна уу!"
                 required
-                pattern="[0-9]{8}"
               />
             </div>
 
-            <!-- Нууц үг хэсэг -->
             <div class="form-group">
               <label for="password">Нууц үг</label>
               <input
@@ -40,7 +38,6 @@
               />
             </div>
 
-            <!-- Нууц үг баталгаажуулах хэсэг -->
             <div class="form-group">
               <label for="confirm-password">Нууц үгийг баталгаажуулах</label>
               <input
@@ -51,14 +48,64 @@
               />
             </div>
 
-            <!-- Бүртгүүлэх холбоос -->
             <a href="./login.html">Та бүртгэлтэй юу? Нэвтрэх</a>
 
-            <!-- Бүртгүүлэх товч -->
             <button type="submit">Бүртгүүлэх</button>
           </form>
         </div>
       </div>
     </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("registerForm");
+
+        form.addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+          const confirmPassword =
+            document.getElementById("confirm-password").value;
+
+          // Check if passwords match
+          if (password !== confirmPassword) {
+            alert("Нууц үг таарахгүй байна!");
+            return;
+          }
+
+          try {
+            const response = await fetch(
+              "http://localhost:5001/api/user/register",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  username: name,
+                  email: email,
+                  password: password,
+                  role: "regular",
+                }),
+              }
+            );
+
+            const data = await response.json();
+            console.log("Server Response:", data); // Debugging log
+
+            if (data.success) {
+              alert("Бүртгэл амжилттай!");
+              localStorage.setItem("token", data.token);
+              window.location.href = "index.html";
+            } else {
+              alert(data.error || "Бүртгэл амжилтгүй боллоо.");
+            }
+          } catch (error) {
+            console.error("Registration error:", error);
+            alert("Серверийн алдаа гарлаа.");
+          }
+        });
+      });
+    </script>
   </body>
 </html>

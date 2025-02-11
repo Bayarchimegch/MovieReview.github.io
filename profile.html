@@ -1,80 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile Page</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-</head>
-<style>
-    ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        justify-content: space-between;
-    }
+    <link rel="stylesheet" href="public/css/styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./public/css/color.css" />
+    <script type="module" src="./public/components/header-wc.js"></script>
+    <script type="module" src="./public/components/footer-wc.js"></script>
+  </head>
 
-    ul li {
-        display: inline;
-    }
+  <body>
+    <header-component></header-component>
 
-    ul li a {
-        text-decoration: none;
-        padding: 10px 15px;
-        display: block;
-    }
-
-    ul li input {
-        padding: 5px;
-        margin-top: 8px;
-    }
-</style>
-
-<body>
     <div class="container">
-        <div class="sidebar">
-            <h2>Profile</h2>
-            <p><strong>Huslen. A</strong></p>
-            <p>khuslen120400@gmail.com</p>
-            <a href="#">Manage Account</a>
+      <div class="sidebar">
+        <h2>Profile</h2>
+        <p><strong>Huslen. A</strong></p>
+        <p>khuslen120400@gmail.com</p>
+        <a href="#">Manage Account</a>
+      </div>
+
+      <div class="content">
+        <div class="section">
+          <h3>My Movie Ratings</h3>
+          <div class="card">
+            <i class="fas fa-star"></i>
+            <p>No Movie Ratings Yet</p>
+            <p>
+              Rate each movie you watched by using a 5-star scale to share your
+              thoughts and reactions.
+            </p>
+          </div>
         </div>
 
-        <div class="content">
-            <div class="section">
-                <h3>My Movie Ratings</h3>
-                <div class="card">
-                    <i class="fas fa-star"></i>
-                    <p>No Movie Ratings Yet</p>
-                    <p>Rate each movie you watched by using a 5-star scale to share your thoughts and reactions.</p>
-                </div>
-            </div>
-
-            <div class="section">
-                <h3>My TV Ratings</h3>
-                <div class="card">
-                    <i class="fas fa-star"></i>
-                    <p>No TV Ratings Yet</p>
-                    <p>Rate each TV show you watched by using a 5-star scale to share your thoughts and reactions.</p>
-                </div>
-            </div>
-
-            <div class="section">
-                <h3>My Watchlist</h3>
-                <div class="card">
-                    <i class="fas fa-plus"></i>
-                    <p>Your Watchlist is Empty</p>
-                    <p>Add movies and shows to your Watchlist to keep track of what you want to watch.</p>
-                    <div class="buttons">
-                        <button>Browse Popular Movies</button>
-                        <button>Browse Popular TV Shows</button>
-                    </div>
-                </div>
-            </div>
+        <div class="section">
+          <h3>My TV Ratings</h3>
+          <div class="card">
+            <i class="fas fa-star"></i>
+            <p>No TV Ratings Yet</p>
+            <p>
+              Rate each TV show you watched by using a 5-star scale to share
+              your thoughts and reactions.
+            </p>
+          </div>
         </div>
+
+        <div class="section">
+          <h3>My Watchlist</h3>
+          <div class="card">
+            <i class="fas fa-plus"></i>
+            <p>Your Watchlist is Empty</p>
+            <p>
+              Add movies and shows to your Watchlist to keep track of what you
+              want to watch.
+            </p>
+            <div class="buttons">
+              <button>Browse Popular Movies</button>
+              <button>Browse Popular TV Shows</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
 
+    <footer-component></footer-component>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const userData = JSON.parse(localStorage.getItem("user"));
+
+        if (userData) {
+          document.querySelector(".sidebar strong").textContent = userData.name;
+          document.querySelector(".sidebar p:nth-child(3)").textContent =
+            userData.email;
+        }
+      });
+    </script>
+  </body>
 </html>

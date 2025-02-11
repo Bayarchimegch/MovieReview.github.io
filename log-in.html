@@ -18,7 +18,7 @@
               <label for="Майл хаяг">Майл хаяг</label>
               <input
                 type="email"
-                id="Майл хаяг"
+                id="email"
                 placeholder="Майл хаягаа оруулна уу!"
                 required
               />
@@ -40,4 +40,37 @@
       </div>
     </div>
   </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.querySelector("form");
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        try {
+          const response = await fetch("http://localhost:5001/api/user/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            alert("Амжилттай нэвтэрлээ!"); // Success alert
+            localStorage.setItem("token", data.token); // Store token
+            window.location.href = "index.html"; // Redirect to index.html
+          } else {
+            alert(data.error || "Нэвтрэхэд алдаа гарлаа."); // Show error
+          }
+        } catch (error) {
+          console.error("Login error:", error);
+          alert("Серверийн алдаа гарлаа.");
+        }
+      });
+    });
+  </script>
 </html>

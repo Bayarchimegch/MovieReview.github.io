@@ -9,7 +9,7 @@ class HomeMovie extends HTMLElement {
       <style>
                      .card {
     display: inline-block;
-    width: 160px; 
+    width: 160px;
     background-color: var(--secondary);
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -44,7 +44,6 @@ class HomeMovie extends HTMLElement {
     white-space: normal; /* Текстийг шинэ мөр рүү шилжүүлнэ */
 }
 
-
 /* ✅ Дэлгэцийн хэмжээнээс хамаарч үсгийн хэмжээ багасгах */
 @media (max-width: 1200px) {
     .card {
@@ -54,7 +53,7 @@ class HomeMovie extends HTMLElement {
         max-height: 190px;
     }
     .card h4 {
-        font-size: 12px; 
+        font-size: 12px;
     }
 }
 
@@ -66,7 +65,7 @@ class HomeMovie extends HTMLElement {
         max-height: 170px;
     }
     .card h4 {
-        font-size: 12px; 
+        font-size: 12px;
     }
 }
 
@@ -90,7 +89,7 @@ class HomeMovie extends HTMLElement {
         max-height: 130px;
     }
     .card h4 {
-        font-size: 10px; 
+        font-size: 10px;
     }
 }
 
@@ -102,7 +101,7 @@ class HomeMovie extends HTMLElement {
         max-height: 110px;
     }
     .card h4 {
-        font-size: 8px; 
+        font-size: 8px;
     }
 }
 
@@ -146,7 +145,7 @@ class HomeMovie extends HTMLElement {
   render() {
     const id = this.getAttribute("id");
     const title = this.getAttribute("title");
-    const description = this.getAttribute("description");
+    const description = this.getAttribute("plot");
     const releaseYear = this.getAttribute("releaseYear");
     const genre = this.getAttribute("genre")
       ? this.getAttribute("genre").split(",")

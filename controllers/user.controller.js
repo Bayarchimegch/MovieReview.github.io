@@ -13,8 +13,26 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ error: "Email already in use" });
     }
 
+    // Create new user
     const newUser = await User.createUser({ username, email, password, role });
-    res.status(201).json(newUser);
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: newUser.id, role: newUser.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.status(201).json({
+      success: true,
+      token,
+      user: {
+        id: newUser.id,
+        username: newUser.username,
+        email: newUser.email,
+        role: newUser.role,
+      },
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -44,7 +62,9 @@ const loginUser = async (req, res) => {
       { expiresIn: "1h" }
     );
 
+    // Return success response
     res.json({
+      success: true,
       token,
       user: {
         id: user.id,

@@ -12,7 +12,6 @@ class HeaderComponent extends HTMLElement {
       console.error("Theme color алдаа:", err)
     );
   }
-
   #render() {
     this.innerHTML = `
       <style>
@@ -339,18 +338,32 @@ header nav label{
         </a>
         <nav>
             <ul class="main-menu">  
-                <li><a href="index.html">Нүүр</a></li>
                 <li><a href="movies.html">Кино</a></li>
             </ul>
             <ul class="right">
                 <li class="search"><input type="text" class="search" id="searchInput" placeholder="Хайх"></li> 
                 <li><a href="contact.html">Холбогдох</a></li> 
-                <li id="loginLink"><a href="log-in.html">Нэвтрэх</a></li>
+                <li id="authLink"><a href="log-in.html">Нэвтрэх</a></li>
             </ul>
             <label for="menu" class="menu"><i class="fa fa-bars"></i></label>
         </nav>   
       </header>
     `;
+    this.#updateAuthStatus();
+  }
+  #updateAuthStatus() {
+    const authLink = this.querySelector("#authLink a");
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      // If token exists, show "Profile" instead of "Login"
+      authLink.textContent = "Профайл";
+      authLink.href = "profile.html";
+    } else {
+      // If no token, keep "Login"
+      authLink.textContent = "Нэвтрэх";
+      authLink.href = "log-in.html";
+    }
   }
 }
 

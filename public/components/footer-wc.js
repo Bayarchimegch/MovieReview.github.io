@@ -13,7 +13,7 @@ class FooterComponent extends HTMLElement {
            footer {
                width: 100%;
                height: 7rem;
-            //    background: #fff;
+                background: #fff;
                background: #0F0F0F;
                box-shadow: 0px 4px 10px 0px rgba(240, 251, 255, 0.20) inset;
                display: grid;

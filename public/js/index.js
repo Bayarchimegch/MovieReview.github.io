@@ -18,7 +18,7 @@ async function fetchMovies() {
 // Fetch Top Rated Movies
 async function fetchTopMovies() {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/movie/top/5`);
+    const response = await fetch(`${API_BASE_URL}/api/movie/top/6`);
     if (!response.ok) throw new Error("Failed to fetch top movies");
     const topMovies = await response.json();
     displayTopMovies(topMovies);
@@ -55,7 +55,7 @@ function displayTopMovies(movies) {
     const topMovieElement = document.createElement("top-movie");
     topMovieElement.setAttribute("id", movie.id);
     topMovieElement.setAttribute("title", movie.mongolian_title);
-    topMovieElement.setAttribute("rate", movie.imdb_rating); // Use Mongolian title
+    topMovieElement.setAttribute("rate", movie.imdb_rating);
     topMovieElement.setAttribute(
       "posterUrl",
       movie.poster || "./public/assets/images/default-poster.jpg"

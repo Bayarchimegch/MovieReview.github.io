@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     } catch (error) {
       console.error(error);
-      document.querySelector(".movie-title").textContent = "Movie Not Found";
+      document.querySelector(".movie-title").textContent = "Movie";
     }
   } else {
     console.error("No movie ID in URL");
@@ -70,20 +70,20 @@ function formatRuntime(runtime) {
   return `${hours}h ${minutes}min`;
 }
 
-async function fetchReviews(movieId) {
-  try {
-    const response = await fetch(
-      `http://localhost:5001/api/reviews/${movieId}`
-    );
-    if (!response.ok) {
-      throw new Error("Error fetching reviews");
-    }
-    return await response.json();
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-}
+// async function fetchReviews(movieId) {
+//   try {
+//     const response = await fetch(
+//       `http://localhost:5001/api/reviews/${movieId}`
+//     );
+//     if (!response.ok) {
+//       throw new Error("Error fetching reviews");
+//     }
+//     return await response.json();
+//   } catch (error) {
+//     console.error(error);
+//     return [];
+//   }
+// }
 
 // Apply Theme
 const applyTheme = () => {

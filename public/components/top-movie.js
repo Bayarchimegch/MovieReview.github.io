@@ -159,7 +159,7 @@ class TopMovie extends HTMLElement {
                     ${movies
                       .map(
                         (movie) => ` 
-                        <a href="info.html?id=${movie.id}" class="card">
+                        <a href="movie-detail.html?id=${movie.id}" class="card">
                             <div class="imagee">
                                 <img
                                 src="${movie.posterUrl}" alt="${movie.title}"
