@@ -1,5 +1,6 @@
 const Rating = require("../models/rating.model");
-
+const Movie = require("../models/movie.model");
+const { getMovieById } = require("../models/movie.model");
 // Create a new rating
 const createRating = async (req, res) => {
   try {
@@ -36,6 +37,85 @@ const getRatingsByMovieId = async (req, res) => {
   try {
     const ratings = await Rating.getRatingsByMovieId(req.params.movie_id);
     res.json(ratings);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+const getMovieWithRatings = async (req, res) => {
+  try {
+    const movieId = req.params.movie_id;
+
+    // Get movie details from the database
+    const movie = await getMovieById(movieId);
+
+    if (!movie) {
+      return res.status(404).json({ error: "Movie not found" });
+    }
+
+    // Fetch all ratings for the movie
+    const ratings = await Rating.getRatingsByMovieId(movieId); // Assuming this function exists in your Rating model
+
+    if (ratings.length === 0) {
+      return res.status(404).json({ error: "No ratings found for this movie" });
+    }
+
+    // Respond with movie details and the full rating details
+    res.status(200).json({
+      movie: {
+        id: movie.id,
+        title: movie.title,
+        year: movie.year,
+        director: movie.director,
+        // Add more movie details as needed
+      },
+      ratings: ratings, // Sending the full rating objects
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+const getUserWithRatings = async (req, res) => {
+  try {
+    const userId = req.params.user_id;
+
+    // Fetch all movies with ratings
+    const allMovies = await Movie.getAllMovies(); // Ensure this function exists in your Movie model
+
+    // Get all ratings for all movies
+    const allRatings = await Promise.all(
+      allMovies.map(async (movie) => {
+        const ratings = await Rating.getRatingsByMovieId(movie.id); // Use this function
+        return { movie, ratings };
+      })
+    );
+
+    // Filter ratings by user ID
+    const userRatings = allRatings
+      .flatMap(({ movie, ratings }) =>
+        ratings
+          .filter((rating) => rating.user_id === parseInt(userId)) // Filter only this user's ratings
+          .map((rating) => ({
+            movie: {
+              id: movie.id,
+              title: movie.title,
+              year: movie.year,
+              director: movie.director,
+            },
+            rating: {
+              value: rating.value,
+            },
+          }))
+      );
+
+    if (userRatings.length === 0) {
+      return res.status(404).json({ error: "No ratings found for this user" });
+    }
+
+    // Respond with user ratings
+    res.status(200).json({
+      userId: userId,
+      moviesWithRatings: userRatings,
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -81,4 +161,6 @@ module.exports = {
   getRatingsByMovieId,
   updateRating,
   deleteRating,
+  getMovieWithRatings,
+  getUserWithRatings
 };

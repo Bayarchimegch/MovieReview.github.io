@@ -62,7 +62,9 @@
           if (data.success) {
             alert("Амжилттай нэвтэрлээ!"); // Success alert
             localStorage.setItem("token", data.token); // Store token
+             localStorage.setItem("userId", data.user.id); 
             window.location.href = "index.html"; // Redirect to index.html
+            
           } else {
             alert(data.error || "Нэвтрэхэд алдаа гарлаа."); // Show error
           }
