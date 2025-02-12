@@ -16,94 +16,196 @@
   <body>
     <header-component></header-component>
 
-    <main class="movie-detail">
-      <!-- First row with movie title, type, year, and runtime -->
-      <div class="row">
-        <div class="column movie-title-container">
-          <h1 class="movie-title">Movie Title</h1>
-        </div>
-        <div class="column movie-type-year-runtime">
-          <p class="movie-type"><span class="type-value">-</span></p>
-          <p class="movie-year">•<span class="year-value"></span></p>
-          <p class="movie-runtime">•<span class="runtime-value"></span></p>
-        </div>
-      </div>
+    <section class="bugd" id="movie-details">
+      <article class="heseg">
+        <img id="Poster_zurag" src="" class="movie-poster" alt="Movie Poster" />
+      </article>
+      <article class="heseg">
+        <h2 class="movie-title-op"></h2>
+        <p class="unelgee">
+          <span><i class="fa fa-heart" style="color: red"></i></span>
+          <span class="like-count" id="likeCount"></span>
+        </p>
+        <p class="like-button" id="likeButton">
+          <i
+            id="icon"
+            class="fas fa-heart like-icon"
+            onclick="toggleLike()"
+          ></i>
+        </p>
+        <p class="textGarchig">
+          Гарсан огноо: <span class="year-value" id="caption"></span>
+        </p>
+        <p class="textGarchig">
+          Насны ангилал: <span class="rated-value" id="caption"></span>
+        </p>
+        <p class="textGarchig">
+          Тайлбар: <span class="mongolian-plot-value" id="caption"></span>
+        </p>
+        <p class="textGarchig">
+          Найруулагч: <span class="director-op" id="caption"></span>
+        </p>
+        <p class="textGarchig">
+          Зохиолч: <span class="writer-value" id="caption"></span>
+        </p>
+        <p class="textGarchig">
+          Гол дүр: <span class="actors-value" id="caption"></span>
+        </p>
 
-      <!-- Second row with IMDb rating and your rating -->
-      <div class="row">
-        <div class="column movie-rating-container">
-          <p class="imdb-rating">
-            IMDb Rating: <span class="imdb-value">8.0</span>
-          </p>
-          <p class="user-rating">
-            Your Rating: <span class="user-value">-</span>
-          </p>
-        </div>
-      </div>
-
-      <img src="" alt="Movie Poster" class="movie-poster" />
-    </main>
-
-    <section class="reviews-section">
-      <h2>Reviews</h2>
-      <div class="reviews-container">
-        <div class="review">
-          <h3>John Doe</h3>
-          <p class="review-date">2024-12-22</p>
-          <p class="review-text">
-            Amazing movie! The action scenes were top-notch, and the plot was
-            captivating. Highly recommend!
-          </p>
-          <p class="review-rating">Rating: <strong>4.5/5</strong></p>
-        </div>
-        <div class="review">
-          <h3>Jane Smith</h3>
-          <p class="review-date">2024-12-21</p>
-          <p class="review-text">
-            Good movie overall, but some parts felt a bit slow. Still worth
-            watching!
-          </p>
-          <p class="review-rating">Rating: <strong>3.8/5</strong></p>
-        </div>
-        <div class="review">
-          <h3>Mark Lee</h3>
-          <p class="review-date">2024-12-20</p>
-          <p class="review-text">
-            A bit predictable, but still enjoyable. Would have liked more
-            character development, but the visuals were stunning.
-          </p>
-          <p class="review-rating">Rating: <strong>4.0/5</strong></p>
-        </div>
-      </div>
-
-      <!-- Input form for adding new reviews -->
-      <div class="review-form">
-        <h3>Add Your Review</h3>
-        <div class="form">
-          <div class="form-group">
-            <label for="review-rating">Rating (0-5):</label>
-            <input
-              type="number"
-              id="review-rating"
-              min="0"
-              max="5"
-              step="0.1"
-              placeholder="Enter your rating"
-              required
-            />
+        <div class="review-form">
+          <div class="form">
+            <div class="form-group">
+              <label for="review-rating">Үнэлгээ (0-5):</label>
+              <input
+                type="number"
+                id="review-rating"
+                min="0"
+                max="5"
+                step="0.1"
+                placeholder="Үнэлгээгээ бичнэ үү"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="review-comment">Сэтгэгдэл:</label>
+              <textarea
+                id="review-comment"
+                rows="3"
+                placeholder="Сэтгэгдлээ үлдээнэ үү..."
+                required
+              ></textarea>
+            </div>
+            <input type="submit" id="post-review-button" value="Илгээх" />
           </div>
-          <div class="form-group">
-            <label for="review-comment">Comment:</label>
-            <textarea
-              id="review-comment"
-              rows="3"
-              placeholder="Write your review here..."
-              required
-            ></textarea>
-          </div>
-          <input type="submit" id="post-review-button" value="Post review" />
         </div>
-      </div>
+
+        <script>
+          document.addEventListener("DOMContentLoaded", function () {
+            // Get the movie id from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const movieId = urlParams.get("id");
+
+            // Get user id from localStorage
+            const userId = localStorage.getItem("userId"); // Assuming user_id is saved in localStorage
+
+            const postReviewButton =
+              document.getElementById("post-review-button");
+            const reviewRating = document.getElementById("review-rating");
+            const reviewComment = document.getElementById("review-comment");
+
+            // Fetch ratings for this movie
+            async function fetchMovie() {
+              try {
+                const response = await fetch(
+                  `http://localhost:5001/api/movie/${movieId}`
+                );
+                const data = await response.json();
+
+                if (response.ok) {
+                  // Display the ratings, assuming you want to list them on the page
+                  console.log("Ratings:", data);
+                  // You could update the DOM with the ratings data here
+                  // Example: document.getElementById('ratings-list').innerHTML = renderRatings(data);
+                } else {
+                  alert(`Error: ${data.error || "Failed to fetch ratings."}`);
+                }
+              } catch (error) {
+                alert(
+                  `An error occurred while fetching ratings: ${error.message}`
+                );
+              }
+            }
+            async function fetchRatings() {
+              try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const movieId = urlParams.get("id"); // This will dynamically get the 'id' from the URL
+
+                // Send the POST request with movieId as part of the URL
+                const response = await fetch(
+                  `http://localhost:5001/api/rating/ratings/movie/${movieId}`,
+                  {
+                    method: "POST", // Use POST to match your route
+                    headers: {
+                      "Content-Type": "application/json",
+                      // Include any authorization header if required
+                      Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                    body: JSON.stringify({ movieId }), // Payload with movieId as the object
+                  }
+                );
+
+                const data = await response.json();
+
+                if (response.ok) {
+                  console.log("Ratings:", data);
+
+                } else {
+                  alert(`Error: ${data.error || "Failed to fetch ratings."}`);
+                }
+              } catch (error) {
+                alert(
+                  `An error occurred while fetching ratings: ${error.message}`
+                );
+              }
+            }
+
+            fetchRatings();
+            postReviewButton.addEventListener("click", async function (e) {
+              e.preventDefault(); // Prevent form submission
+
+              const ratingValue = parseFloat(reviewRating.value);
+              const comment = reviewComment.value;
+
+              if (isNaN(ratingValue) || ratingValue < 0 || ratingValue > 5) {
+                alert("Please enter a valid rating between 0 and 5.");
+                return;
+              }
+
+              if (!userId) {
+                alert("Please log in first.");
+                return;
+              }
+
+              const ratingData = {
+                movie_id: movieId,
+                user_id: userId,
+                value: ratingValue,
+              };
+
+              try {
+                // Send the rating data to your API to create a new rating
+                const response = await fetch(
+                  "http://localhost:5001/api/rating/create",
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Authorization: `Bearer ${localStorage.getItem("token")}`, // Assuming the token is stored in localStorage
+                    },
+                    body: JSON.stringify(ratingData),
+                  }
+                );
+
+                const data = await response.json();
+
+                if (response.ok) {
+                  alert("Your review has been submitted successfully!");
+                  // Optionally, you can reset the form after successful submission
+                  reviewRating.value = "";
+                  reviewComment.value = "";
+                  // After submitting the new review, you might want to refetch the updated ratings list
+                  fetchMovie();
+                  fetchRatings(); // Refetch the ratings after submission
+                } else {
+                  alert(`Error: ${data.error || "Failed to submit review."}`);
+                }
+              } catch (error) {
+                alert(`An error occurred: ${error.message}`);
+              }
+            });
+          });
+        </script>
+      </article>
     </section>
 
     <footer-component></footer-component>

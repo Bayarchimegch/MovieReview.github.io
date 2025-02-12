@@ -38,7 +38,7 @@ const ratingController = require("../controllers/rating.controller");
  *       500:
  *         description: Серверийн алдаа
  */
-router.post("/", ratingController.createRating);
+router.post("/create", ratingController.createRating);
 
 /**
  * @swagger
@@ -82,7 +82,9 @@ router.get("/:id", ratingController.getRatingById);
  *       500:
  *         description: Сервэрийн алдаа
  */
-router.get("/movie/:movie_id", ratingController.getRatingsByMovieId);
+router.post("/movie/:movie_id", ratingController.getRatingsByMovieId);
+router.post("/ratings/movie/:movie_id", ratingController.getMovieWithRatings);
+router.get("/ratings/user/:user_id", ratingController.getUserWithRatings);
 
 /**
  * @swagger

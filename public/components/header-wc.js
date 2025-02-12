@@ -66,9 +66,7 @@ header li a {
 header li a:hover {
     color: var(--primary);
 }
-section {
-    margin-top: 30px;
-} 
+
 .search {
     border: none;
     border-radius: 15px;
@@ -373,16 +371,43 @@ header nav label{
     `;
     this.#updateAuthStatus();
   }
-  #updateAuthStatus() {
+  async #updateAuthStatus() {
     const authLink = this.querySelector("#authLink a");
     const token = localStorage.getItem("token");
 
     if (token) {
-      // If token exists, show "Profile" instead of "Login"
-      authLink.textContent = "Профайл";
-      authLink.href = "profile.html";
+      // If a token exists, fetch the user data by ID
+      const userId = localStorage.getItem("userId"); // Make sure user ID is stored in localStorage when the user logs in
+      if (userId) {
+        try {
+          const response = await fetch(
+            `http://localhost:5001/api/user/${userId}`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`, // Include the JWT token in the request
+              },
+            }
+          );
+
+          const data = await response.json();
+          if (data && data.id) {
+            // If the user data is fetched successfully
+            authLink.textContent = data.username || "Профайл"; // Display username in the header
+            authLink.href = "profile.html";
+          } else {
+            console.error("Failed to fetch user data");
+            authLink.textContent = "Нэвтрэх";
+            authLink.href = "log-in.html";
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+          authLink.textContent = "Нэвтрэх";
+          authLink.href = "log-in.html";
+        }
+      }
     } else {
-      // If no token, keep "Login"
+      // If no token, keep "Login" link
       authLink.textContent = "Нэвтрэх";
       authLink.href = "log-in.html";
     }

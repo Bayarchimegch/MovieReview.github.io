@@ -13,22 +13,42 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const movie = await response.json();
 
-      document.querySelector(".movie-poster").src = movie.poster;
-      document.querySelector(".movie-poster").alt = movie.title;
-      document.querySelector(".movie-title").textContent =
-        movie.mongolian_title;
-      document.querySelector(".type-value").textContent = movie.type || "Movie";
-      document.querySelector(".year-value").textContent = movie.year;
-      document.querySelector(".runtime-value").textContent = formatRuntime(
-        movie.runtime
-      );
-      document.querySelector(".imdb-value").innerHTML = `⭐ ${
-        movie.imdbRating || "N/A"
-      }`;
-      document.querySelector(".user-value").innerHTML = movie.userRating
-        ? `⭐ ${movie.userRating}`
-        : "☆";
+      document.querySelector(".movie-poster").src =
+        movie.poster || "default.jpg";
 
+      document.querySelector(".movie-poster").alt = movie.title;
+
+      document.querySelector(".movie-title-op").textContent =
+        movie.mongolian_title || movie.title;
+      document.querySelector(".year-value").textContent = movie.year || "N/A";
+      document.querySelector(".rated-value").textContent = movie.rated || "N/A";
+
+      document.querySelector(".director-op").textContent = movie.director;
+
+      document.querySelector(".writer-value").textContent =
+        movie.writer || "N/A";
+      document.querySelector(".actors-value").textContent =
+        movie.actors || "N/A";
+      document.querySelector(".mongolian-plot-value").textContent =
+        movie.mongolian_plot || "N/A";
+      document.querySelector(".language-value").textContent =
+        movie.language || "N/A";
+      document.querySelector(".country-value").textContent =
+        movie.country || "N/A";
+      document.querySelector(".mongolian-awards-value").textContent =
+        movie.mongolian_awards || "N/A";
+      document.querySelector(".imdb-rating-value").textContent = `⭐ ${
+        movie.imdb_rating || "N/A"
+      }`;
+      document.querySelector(".imdb-id-value").textContent =
+        movie.imdbID || "N/A";
+      document.querySelector(".box-office-value").textContent = movie.box_office
+        ? `$${parseFloat(
+            movie.box_office.replace(/[^0-9.]/g, "")
+          ).toLocaleString()}`
+        : "N/A";
+
+      console.log(movie);
       const movieReviews = await fetchReviews(movieId);
       const reviewsContainer = document.querySelector(".reviews-container");
       reviewsContainer.innerHTML = "";
@@ -53,7 +73,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         reviewsContainer.appendChild(noReviewsMessage);
       }
     } catch (error) {
-      console.error(error);
       document.querySelector(".movie-title").textContent = "Movie";
     }
   } else {
@@ -69,41 +88,3 @@ function formatRuntime(runtime) {
   const minutes = parseInt(parts[1], 10);
   return `${hours}h ${minutes}min`;
 }
-
-// async function fetchReviews(movieId) {
-//   try {
-//     const response = await fetch(
-//       `http://localhost:5001/api/reviews/${movieId}`
-//     );
-//     if (!response.ok) {
-//       throw new Error("Error fetching reviews");
-//     }
-//     return await response.json();
-//   } catch (error) {
-//     console.error(error);
-//     return [];
-//   }
-// }
-
-// Apply Theme
-const applyTheme = () => {
-  document.body.style.backgroundColor = getComputedStyle(
-    document.documentElement
-  ).getPropertyValue("--background");
-  document.body.style.color = getComputedStyle(
-    document.documentElement
-  ).getPropertyValue("--textPrimary");
-  document.body.style.paddingTop = "60px"; // Add top padding to avoid overlap with header
-};
-
-document.addEventListener("DOMContentLoaded", applyTheme);
-window
-  .matchMedia("(prefers-color-scheme: dark)")
-  .addEventListener("change", applyTheme);
-
-const themeToggle = document.getElementById("theme-toggle");
-themeToggle?.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  document.body.classList.toggle("light-mode");
-  applyTheme();
-});

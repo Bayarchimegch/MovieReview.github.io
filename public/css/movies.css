@@ -1,70 +1,75 @@
-/* General Reset */
-html {
+body {
   background-color: var(--background);
 }
-
-body {
-  font-family: Arial, sans-serif;
-  padding: 0;
+.main-content {
+  display: flex;
+  margin-top: 100px;
   margin-left: 10%;
   margin-right: 10%;
 }
 
-/* Main Content Layout */
-.main-content {
-  display: flex;
-  align-items: flex-start; /* Aligns content to the top */
-  padding: 20px;
+.categories {
+  height: 100%;
+  background-color: var(--secondary);
+  color: var(--textPrimary);
+  border-radius: 10px;
+  margin-right: 20px;
 }
 
-.categories {
-  width: 250px;
-  padding: 20px;
-  background-color: var(--backgroundSecondary);
-  border-radius: 8px;
-  margin-right: 20px;
-  border: 2px solid var(--accent);
+.genre-filters {
+  list-style-type: none;
+  padding: 0;
+}
+
+.genre-filters label {
+  width: 200px;
+  display: block;
+  margin-bottom: 5px;
 }
 
 .movie-list-container {
   flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  flex-grow: 1; /* Takes up remaining space */
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px;
   background-color: var(--background);
-  border-radius: 8px;
+  border-radius: 10px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border: 2px solid var(--accent);
+  margin-bottom: 20px;
 }
 
-/* Movie Card Layout */
 movie-card {
-  display: flex;
-  flex-direction: column; /* Stack content vertically */
-  justify-content: space-between; /* Push the button to the bottom */
-  width: 200px;
-  min-height: 400px; /* Fixed height for uniform card size */
-  text-align: center;
-  border: 2px solid var(--ligthPrimary);
-  border-radius: 8px;
+  border: var(--secondary);
   padding: 10px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: var(--secondary);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 movie-card img {
-  width: 100%;
-  height: 300px; /* Fixed height for all images */
-  object-fit: cover; /* Ensures images maintain aspect ratio while covering the container */
+  width: 278px;
+  height: 300px;
+  object-fit: cover;
   border-radius: 5px;
 }
 
 .genre-filters {
   list-style: none;
-  padding: 0;
+  padding: 10px;
   margin: 0;
-  width: max-content;
+}
+h4 {
+  font-size: 16px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: var(--textPrimary);
 }
 
 .genre-filters label {
@@ -75,37 +80,87 @@ movie-card img {
 
 .genre-filters input {
   margin-right: 10px;
+  padding: 10px;
 }
-
-/* Watchlist Button */
-.watchlist-btn {
+h3 {
   color: var(--textPrimary);
-  background-color: var(--containerBg);
-  border-color: var(--inputBorder);
-  border-radius: 15px;
-  padding: 5px 10px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: auto;
+  padding: 10px;
 }
-
-.watchlist-btn:hover {
-  background-color: var(--buttonHoverBg);
+@media (max-width: 600px) {
+  movie-card img {
+    width: 100px !important;
+    height: 120px !important;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  h4 {
+    font-size: 8px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+  movie-card {
+    max-width: 100px !important;
+    min-width: 80px !important;
+  }
 }
-
-/* Responsive Adjustments */
 @media (max-width: 768px) {
   .main-content {
-    flex-direction: column; /* Stacks the sidebar and movie list vertically */
+    flex-direction: column;
   }
 
   .categories {
-    width: 100%; /* Sidebar takes full width on small screens */
+    width: 100%;
     margin-right: 0;
   }
 
   .movie-list-container {
     margin-top: 20px;
+  }
+  movie-card img {
+    width: 160px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  movie-card {
+    max-width: 200px !important;
+  }
+  h4 {
+    font-size: 10px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 1100px) {
+  .main-content {
+    flex-direction: column;
+  }
+
+  .categories {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .movie-list-container {
+    margin-top: 20px;
+  }
+  movie-card img {
+    width: 180px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  movie-card {
+    max-width: 200px !important;
+    min-width: 200px;
+  }
+  h4 {
+    font-size: 12px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
   }
 }
