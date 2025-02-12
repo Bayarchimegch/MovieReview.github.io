@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   let genreCheckboxes;
   let movies = [];
   let filteredMovies = [];
@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const response = await fetch("http://localhost:5001/api/movie/");
       if (!response.ok) throw new Error("Failed to fetch movies");
       movies = await response.json();
-      filterMovies();
+      applyFiltersFromURL(); // Apply filters when movies are fetched
     } catch (e) {
       console.error("Error fetching movies:", e);
     }
@@ -29,9 +29,17 @@ document.addEventListener("DOMContentLoaded", () => {
           movieGenresLower.includes(genre)
         );
       });
+
+      // Update the URL with selected genres
+      const newUrl = `movies.html?genres=${encodeURIComponent(
+        selectedGenres.join(",")
+      )}`;
+      history.pushState({}, "", newUrl);
     } else {
       filteredMovies = movies;
+      history.pushState({}, "", "movies.html");
     }
+
     displayMovies(filteredMovies);
   }
 
@@ -48,17 +56,55 @@ document.addEventListener("DOMContentLoaded", () => {
       movies.forEach((movie) => {
         const movieElement = document.createElement("movie-card");
         movieElement.setAttribute("title", movie.mongolian_title);
-        movieElement.innerHTML = `
-        <img src="${movie.poster}" alt="${movie.mongolian_title}" />
-        <h4>${movie.mongolian_title}</h4>
-      `;
 
-        movieElement.addEventListener("click", () => {
-          window.location.href = `movie-detail.html?id=${movie.id}`;
+        // Keeping the old structure here for styling and functionality
+        movieElement.innerHTML = `
+          <img src="${movie.poster}" alt="${movie.mongolian_title}" />
+          <h4>${movie.mongolian_title}</h4>
+          <button class="watchlist-btn">Жагсаалтанд нэмэх</button>
+        `;
+
+        // Navigate to movie details when clicking on the image or title
+        movieElement
+          .querySelector("img")
+          .addEventListener("click", () => navigateToMovie(movie));
+        movieElement
+          .querySelector("h4")
+          .addEventListener("click", () => navigateToMovie(movie));
+
+        // Add event listener for the Watchlist button
+        const watchlistButton = movieElement.querySelector(".watchlist-btn");
+        watchlistButton.addEventListener("click", (event) => {
+          event.stopPropagation(); // Prevents clicking on the movie itself
+          addToWatchlist(movie);
         });
 
         movieListContainer.appendChild(movieElement);
       });
+    }
+  }
+
+  // Function to navigate to movie details
+  function navigateToMovie(movie) {
+    const urlSlug = movie.mongolian_title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+    window.location.href = `movie-detail.html?id=${movie.id}&title=${urlSlug}`;
+  }
+
+  // Function to add movies to Watchlist
+  function addToWatchlist(movie) {
+    let watchlist = JSON.parse(localStorage.getItem("watchlist")) || [];
+
+    // Check if the movie is already in the watchlist
+    if (!watchlist.some((item) => item.id === movie.id)) {
+      watchlist.push(movie);
+      localStorage.setItem("watchlist", JSON.stringify(watchlist));
+      alert(`"${movie.mongolian_title}" added to your watchlist!`);
+    } else {
+      alert(`"${movie.mongolian_title}" is already in your watchlist.`);
     }
   }
 
@@ -103,13 +149,33 @@ document.addEventListener("DOMContentLoaded", () => {
     genreCheckboxes = document.querySelectorAll(
       '.genre-filters input[type="checkbox"]'
     );
+
+    // Add event listener to checkboxes
     genreCheckboxes.forEach((checkbox) =>
       checkbox.addEventListener("change", filterMovies)
     );
+
+    applyFiltersFromURL(); // Apply URL filters after checkboxes are created
   }
 
-  fetchMovies();
-  fetchGenres();
+  function applyFiltersFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedGenresFromURL = urlParams.get("genres")?.split(",") || [];
+
+    genreCheckboxes.forEach((checkbox) => {
+      checkbox.checked = selectedGenresFromURL.includes(
+        checkbox.value.toLowerCase()
+      );
+    });
+
+    filterMovies(); // Apply filtering after updating checkboxes
+  }
+
+  // Handle browser back/forward navigation
+  window.addEventListener("popstate", applyFiltersFromURL);
+
+  await fetchMovies();
+  await fetchGenres();
 });
 
 // Theme Toggle
@@ -119,11 +185,9 @@ themeToggle?.addEventListener("click", () => {
   document.body.classList.toggle("light-mode");
 });
 
-// Ensure body has padding to prevent it from going behind the top bar
 document.addEventListener("DOMContentLoaded", () => {
   document.body.style.paddingTop = "60px";
 
-  // Adjust movie-list-container to align with genre sidebar
   const movieListContainer = document.querySelector(".movie-list-container");
   if (movieListContainer) {
     movieListContainer.style.marginTop = "0";

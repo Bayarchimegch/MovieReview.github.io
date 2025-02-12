@@ -1,7 +1,7 @@
-import "../components/home-movie.js"; // Import the home-movie component
-import "../components/top-movie.js"; // Import the top-movie component
+import "../components/home-movie.js";
+import "../components/top-movie.js";
 
-let API_BASE_URL = "http://localhost:5001"; // Set API base URL manually
+let API_BASE_URL = "http://localhost:5001";
 
 // Fetch new Movies
 async function fetchMovies() {
@@ -15,7 +15,6 @@ async function fetchMovies() {
   }
 }
 
-// Fetch Top Rated Movies
 async function fetchTopMovies() {
   try {
     const response = await fetch(`${API_BASE_URL}/api/movie/top/6`);
@@ -30,12 +29,12 @@ async function fetchTopMovies() {
 // Display A new movies
 function displayMovies(movies) {
   const section = document.getElementById("mainMoviesSection");
-  section.innerHTML = ""; // Clear previous content
+  section.innerHTML = "";
 
   movies.forEach((movie) => {
-    const movieElement = document.createElement("home-movie");
+    const movieElement = document.createElement("top-movie");
     movieElement.setAttribute("id", movie.id);
-    movieElement.setAttribute("title", movie.mongolian_title); // Use Mongolian title
+    movieElement.setAttribute("title", movie.mongolian_title);
     movieElement.setAttribute("rate", movie.imdb_rating);
     movieElement.setAttribute(
       "posterUrl",
@@ -46,10 +45,9 @@ function displayMovies(movies) {
   });
 }
 
-// Display Top Movies (just poster and Mongolian title)
 function displayTopMovies(movies) {
   const section = document.getElementById("topMoviesSection");
-  section.innerHTML = ""; // Clear previous content
+  section.innerHTML = "";
 
   movies.forEach((movie) => {
     const topMovieElement = document.createElement("top-movie");
@@ -65,11 +63,9 @@ function displayTopMovies(movies) {
   });
 }
 
-// ✅ Call the functions directly without fetchConfig()
 fetchMovies();
 fetchTopMovies();
 
-// Theme Toggle
 document.getElementById("theme-toggle")?.addEventListener("click", () => {
   document.body.classList.toggle("dark-mode");
   document.body.classList.toggle("light-mode");

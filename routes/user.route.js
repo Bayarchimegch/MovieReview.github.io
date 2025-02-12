@@ -6,14 +6,14 @@ const userController = require("../controllers/user.controller");
  * @swagger
  * tags:
  *   name: Users
- *   description: User management API
+ *   description: Хэрэглэгчийн удирдлагын API
  */
 
 /**
  * @swagger
  * /api/users/register:
  *   post:
- *     summary: Register a new user
+ *     summary: Шинэ хэрэглэгч бүртгэх
  *     tags: [Users]
  *     requestBody:
  *       required: true
@@ -36,11 +36,11 @@ const userController = require("../controllers/user.controller");
  *                 enum: [regular, admin, creator]
  *     responses:
  *       201:
- *         description: User registered successfully
+ *         description: Хэрэглэгч амжилттай бүртгэгдлээ
  *       400:
- *         description: Email already in use
+ *         description: Имэйл аль хэдийн ашиглагдаж байна
  *       500:
- *         description: Server error
+ *         description: Сервэрийн алдаа
  */
 router.post("/register", userController.registerUser);
 
@@ -48,7 +48,7 @@ router.post("/register", userController.registerUser);
  * @swagger
  * /api/users/login:
  *   post:
- *     summary: User login
+ *     summary: Хэрэглэгчийн нэвтрэх
  *     tags: [Users]
  *     requestBody:
  *       required: true
@@ -65,11 +65,11 @@ router.post("/register", userController.registerUser);
  *                 example: password123
  *     responses:
  *       200:
- *         description: Login successful
+ *         description: Нэвтрэх амжилттай боллоо
  *       400:
- *         description: Invalid email or password
+ *         description: Имэйл эсвэл нууц үг буруу
  *       500:
- *         description: Server error
+ *         description: Сервэрийн алдаа
  */
 router.post("/login", userController.loginUser);
 
@@ -77,13 +77,13 @@ router.post("/login", userController.loginUser);
  * @swagger
  * /api/users:
  *   get:
- *     summary: Get all users
+ *     summary: Бүх хэрэглэгчдийг авах
  *     tags: [Users]
  *     responses:
  *       200:
- *         description: List of users
+ *         description: Хэрэглэгчдийн жагсаалт
  *       500:
- *         description: Server error
+ *         description: Сервэрийн алдаа
  */
 router.get("/", userController.getAllUsers);
 
@@ -91,7 +91,7 @@ router.get("/", userController.getAllUsers);
  * @swagger
  * /api/users/{id}:
  *   get:
- *     summary: Get a user by ID
+ *     summary: Хэрэглэгчийг ID-ээр авах
  *     tags: [Users]
  *     parameters:
  *       - in: path
@@ -102,11 +102,11 @@ router.get("/", userController.getAllUsers);
  *         example: 1
  *     responses:
  *       200:
- *         description: User details
+ *         description: Хэрэглэгчийн дэлгэрэнгүй мэдээлэл
  *       404:
- *         description: User not found
+ *         description: Хэрэглэгч олдсонгүй
  *       500:
- *         description: Server error
+ *         description: Сервэрийн алдаа
  */
 router.get("/:id", userController.getUserById);
 
@@ -114,7 +114,7 @@ router.get("/:id", userController.getUserById);
  * @swagger
  * /api/users/{id}:
  *   delete:
- *     summary: Delete a user by ID
+ *     summary: Хэрэглэгчийг ID-ээр устгах
  *     tags: [Users]
  *     parameters:
  *       - in: path
@@ -125,11 +125,11 @@ router.get("/:id", userController.getUserById);
  *         example: 1
  *     responses:
  *       200:
- *         description: User deleted successfully
+ *         description: Хэрэглэгч амжилттай устгагдлаа
  *       404:
- *         description: User not found
+ *         description: Хэрэглэгч олдсонгүй
  *       500:
- *         description: Server error
+ *         description: Сервэрийн алдаа
  */
 router.delete("/:id", userController.deleteUser);
 

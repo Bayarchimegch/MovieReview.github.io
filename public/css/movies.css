@@ -2,6 +2,7 @@
 html {
   background-color: var(--background);
 }
+
 body {
   font-family: Arial, sans-serif;
   padding: 0;
@@ -36,14 +37,20 @@ body {
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   border: 2px solid var(--accent);
 }
+
+/* Movie Card Layout */
 movie-card {
-  width: 200px; /* Ensures all movies have the same width */
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  justify-content: space-between; /* Push the button to the bottom */
+  width: 200px;
+  min-height: 400px; /* Fixed height for uniform card size */
   text-align: center;
-  border: 2px solid var(--accent);
+  border: 2px solid var(--ligthPrimary);
   border-radius: 8px;
   padding: 10px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: var(--backgroundSecondary);
+  background-color: var(--secondary);
 }
 
 movie-card img {
@@ -57,6 +64,7 @@ movie-card img {
   list-style: none;
   padding: 0;
   margin: 0;
+  width: max-content;
 }
 
 .genre-filters label {
@@ -69,7 +77,24 @@ movie-card img {
   margin-right: 10px;
 }
 
-/* Make sure the layout is responsive */
+/* Watchlist Button */
+.watchlist-btn {
+  color: var(--textPrimary);
+  background-color: var(--containerBg);
+  border-color: var(--inputBorder);
+  border-radius: 15px;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: auto;
+}
+
+.watchlist-btn:hover {
+  background-color: var(--buttonHoverBg);
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
   .main-content {
     flex-direction: column; /* Stacks the sidebar and movie list vertically */

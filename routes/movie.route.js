@@ -6,18 +6,18 @@ const MovieController = require("../controllers/movie.controller");
  * @swagger
  * tags:
  *   name: Movies
- *   description: API for managing movies
+ *   description: Кино менежментийн API
  */
 
 /**
  * @swagger
  * /api/movies:
  *   get:
- *     summary: Get all movies
+ *     summary: Бүх киног авах
  *     tags: [Movies]
  *     responses:
  *       200:
- *         description: List of all movies
+ *         description: Бүх киноны жагсаалт
  *         content:
  *           application/json:
  *             schema:
@@ -31,7 +31,7 @@ router.get("/", MovieController.getAllMovies);
  * @swagger
  * /api/movies/{id}:
  *   get:
- *     summary: Get a single movie by ID
+ *     summary: Киноны ID-ээр нэг кино авах
  *     tags: [Movies]
  *     parameters:
  *       - in: path
@@ -39,16 +39,16 @@ router.get("/", MovieController.getAllMovies);
  *         required: true
  *         schema:
  *           type: string
- *         description: The movie ID
+ *         description: Киноны ID
  *     responses:
  *       200:
- *         description: Movie details
+ *         description: Киноны дэлгэрэнгүй мэдээлэл
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *       404:
- *         description: Movie not found
+ *         description: Кино олдсонгүй
  */
 router.get("/:id", MovieController.getMovieById);
 
@@ -56,7 +56,7 @@ router.get("/:id", MovieController.getMovieById);
  * @swagger
  * /api/movies:
  *   post:
- *     summary: Create a new movie
+ *     summary: Шинэ кино үүсгэх
  *     tags: [Movies]
  *     requestBody:
  *       required: true
@@ -77,7 +77,7 @@ router.get("/:id", MovieController.getMovieById);
  *               - releaseYear
  *     responses:
  *       201:
- *         description: Movie created successfully
+ *         description: Кино амжилттай үүсгэгдлээ
  */
 router.post("/", MovieController.createMovie);
 
@@ -85,7 +85,7 @@ router.post("/", MovieController.createMovie);
  * @swagger
  * /api/movies/{id}:
  *   delete:
- *     summary: Delete a movie by ID
+ *     summary: Киноны ID-ээр кино устгах
  *     tags: [Movies]
  *     parameters:
  *       - in: path
@@ -93,27 +93,92 @@ router.post("/", MovieController.createMovie);
  *         required: true
  *         schema:
  *           type: string
- *         description: The movie ID
+ *         description: Киноны ID
  *     responses:
  *       200:
- *         description: Movie deleted successfully
+ *         description: Кино амжилттай устгагдлаа
  *       404:
- *         description: Movie not found
+ *         description: Кино олдсонгүй
  */
 router.delete("/:id", MovieController.deleteMovie);
 
+/**
+ * @swagger
+ * /api/movies/top/{top}:
+ *   get:
+ *     summary: Топ 10 кино авах
+ *     tags: [Movies]
+ *     parameters:
+ *       - in: path
+ *         name: top
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Хэр их кино авахыг заана
+ *     responses:
+ *       200:
+ *         description: Топ киноны жагсаалт
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *       400:
+ *         description: top параметр нь буруу байна
+ */
 router.get("/top/:top", (req, res) => {
-  const top = parseInt(req.params.top, 10); // Convert the 'top' parameter to an integer
+  const top = parseInt(req.params.top, 10); // 'top' параметрийг тоо болгож хувиргах
 
-  // Check if 'top' is a valid number
+  // 'top' параметр нь зөв эсэхийг шалгах
   if (isNaN(top)) {
-    return res.status(400).json({ message: "Invalid 'top' parameter" });
+    return res.status(400).json({ message: "'top' параметр нь буруу байна" });
   }
 
-  MovieController.getTopMovies(req, res, top); // Pass 'top' to the controller
+  MovieController.getTopMovies(req, res, top); // 'top'-ийг контроллерт дамжуулах
 });
 
+/**
+ * @swagger
+ * /api/movies/genre:
+ *   get:
+ *     summary: Киноны жанрын жагсаалтыг авах
+ *     tags: [Movies]
+ *     responses:
+ *       200:
+ *         description: Жанрын жагсаалт
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ */
 router.get("/genre", MovieController.getGenres);
+
+/**
+ * @swagger
+ * /api/movies/new/{limit}:
+ *   get:
+ *     summary: Шинэ кинонуудыг хязгаарласан тоогоор авах
+ *     tags: [Movies]
+ *     parameters:
+ *       - in: path
+ *         name: limit
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: Хэр олон шинэ кино авахыг заана
+ *     responses:
+ *       200:
+ *         description: Шинэ киноны жагсаалт
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ */
 router.get("/new/:limit", MovieController.getNewMovies);
 
 module.exports = router;

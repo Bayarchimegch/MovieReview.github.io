@@ -6,14 +6,14 @@ const ratingController = require("../controllers/rating.controller");
  * @swagger
  * tags:
  *   name: Ratings
- *   description: Ratings API
+ *   description: Үнэлгээний API
  */
 
 /**
  * @swagger
  * /api/ratings:
  *   post:
- *     summary: Create a new rating
+ *     summary: Шинэ үнэлгээ үүсгэх
  *     tags: [Ratings]
  *     requestBody:
  *       required: true
@@ -34,9 +34,9 @@ const ratingController = require("../controllers/rating.controller");
  *                 example: 8.5
  *     responses:
  *       201:
- *         description: Rating created successfully
+ *         description: Үнэлгээ амжилттай үүсгэгдлээ
  *       500:
- *         description: Server error
+ *         description: Серверийн алдаа
  */
 router.post("/", ratingController.createRating);
 
@@ -44,7 +44,7 @@ router.post("/", ratingController.createRating);
  * @swagger
  * /api/ratings/{id}:
  *   get:
- *     summary: Get a rating by ID
+ *     summary: Үнэлгээг ID-ээр авах
  *     tags: [Ratings]
  *     parameters:
  *       - in: path
@@ -55,11 +55,11 @@ router.post("/", ratingController.createRating);
  *         example: 1
  *     responses:
  *       200:
- *         description: Rating details
+ *         description: Үнэлгээний дэлгэрэнгүй мэдээлэл
  *       404:
- *         description: Rating not found
+ *         description: Үнэлгээ олдсонгүй
  *       500:
- *         description: Server error
+ *         description: Сервэрийн алдаа
  */
 router.get("/:id", ratingController.getRatingById);
 
@@ -67,7 +67,7 @@ router.get("/:id", ratingController.getRatingById);
  * @swagger
  * /api/ratings/movie/{movie_id}:
  *   get:
- *     summary: Get all ratings for a movie
+ *     summary: Кино бүрт бүх үнэлгээг авах
  *     tags: [Ratings]
  *     parameters:
  *       - in: path
@@ -78,9 +78,9 @@ router.get("/:id", ratingController.getRatingById);
  *         example: 1
  *     responses:
  *       200:
- *         description: List of ratings
+ *         description: Үнэлгээний жагсаалт
  *       500:
- *         description: Server error
+ *         description: Сервэрийн алдаа
  */
 router.get("/movie/:movie_id", ratingController.getRatingsByMovieId);
 
@@ -88,7 +88,7 @@ router.get("/movie/:movie_id", ratingController.getRatingsByMovieId);
  * @swagger
  * /api/ratings/{id}:
  *   put:
- *     summary: Update a rating
+ *     summary: Үнэлгээг шинэчлэх
  *     tags: [Ratings]
  *     requestBody:
  *       required: true
@@ -103,11 +103,11 @@ router.get("/movie/:movie_id", ratingController.getRatingsByMovieId);
  *                 example: 7.5
  *     responses:
  *       200:
- *         description: Rating updated successfully
+ *         description: Үнэлгээ амжилттай шинэчлэгдлээ
  *       404:
- *         description: Rating not found
+ *         description: Үнэлгээ олдсонгүй
  *       500:
- *         description: Server error
+ *         description: Сервэрийн алдаа
  */
 router.put("/:id", ratingController.updateRating);
 
@@ -115,7 +115,7 @@ router.put("/:id", ratingController.updateRating);
  * @swagger
  * /api/ratings/{id}:
  *   delete:
- *     summary: Delete a rating
+ *     summary: Үнэлгээг устгах
  *     tags: [Ratings]
  *     parameters:
  *       - in: path
@@ -126,11 +126,11 @@ router.put("/:id", ratingController.updateRating);
  *         example: 1
  *     responses:
  *       200:
- *         description: Rating deleted successfully
+ *         description: Үнэлгээ амжилттай устгагдлаа
  *       404:
- *         description: Rating not found
+ *         description: Үнэлгээ олдсонгүй
  *       500:
- *         description: Server error
+ *         description: Сервэрийн алдаа
  */
 router.delete("/:id", ratingController.deleteRating);
 

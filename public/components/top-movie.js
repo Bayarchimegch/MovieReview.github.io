@@ -54,125 +54,86 @@ class TopMovie extends HTMLElement {
       ];
 
       this.shadowRoot.innerHTML = `
-                <style>
-                     .card {
-    display: inline-block;
-    width: 180px; /* 40px-ээр багасгав */
-    background-color: var(--secondary);
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-decoration: none;
-    color: var(--textPrimary);
-    padding: 10px;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-.card .imagee img {
-    width: 100%;
-    max-height: 210px; /* 40px-ээр багасгав */
-    object-fit: contain;
-    display: block;
-}
-
-.card h4 {
-    font-size: 16px; /* Анхны хэмжээ */
-    height: 30px;
-    padding: 10px;
-    margin: 0;
-    overflow: hidden;
-    word-wrap: break-word; /* Шилжиж байх үед үг хугарах */
-    word-break: break-word; /* Урт үг болон текстийг дараагийн мөрөнд шилжүүлэх */
-    white-space: normal; /* Текстийг шинэ мөр рүү шилжүүлнэ */
-}
-
-
-/* ✅ Дэлгэцийн хэмжээнээс хамаарч үсгийн хэмжээ багасгах */
-@media (max-width: 1200px) {
+  <style>
     .card {
-        max-width: 160px;
+      display: flex;
+  flex-direction: column; /* Stack content vertically */
+  justify-content: space-between; /* Push the button to the bottom */
+  width: 200px;
+  min-height: 400px; /* Fixed height for uniform card size */
+  text-align: center;
+  border: 2px solid var(--ligthPrimary);
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--secondary);
     }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
     .card .imagee img {
-        max-height: 190px;
+      width: 100%;
+  height: 300px; /* Fixed height for all images */
+  object-fit: cover; /* Ensures images maintain aspect ratio while covering the container */
+  border-radius: 5px;
     }
+
     .card h4 {
-        font-size: 12px; 
+      font-size: 16px;
+      height: 30px;
+      padding: 10px;
+      margin: 0;
+      overflow: hidden;
+      word-wrap: break-word;
+      word-break: break-word;
+      white-space: normal;
+      color: var(--textPrimary)
     }
+
+    .watchlist-btn {
+  color: var(--textPrimary);
+  background-color: var(--containerBg);
+  border-color: var(--inputBorder);
+  border-radius: 15px;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: auto;
 }
 
-@media (max-width: 992px) {
-    .card {
-        max-width: 140px;
+    .watchlist-btn:hover {
+  background-color: var(--buttonHoverBg);
     }
-    .card .imagee img {
-        max-height: 170px;
-    }
-    .card h4 {
-        font-size: 12px; 
-    }
-}
 
-@media (max-width: 768px) {
-    .card {
-        max-width: 120px;
-    }
-    .card .imagee img {
-        max-height: 150px;
-    }
-    .card h4 {
-        font-size: 10px;
-    }
-}
-
-@media (max-width: 576px) {
-    .card {
-        max-width: 100px;
-    }
-    .card .imagee img {
-        max-height: 130px;
-    }
-    .card h4 {
-        font-size: 10px; 
-    }
-}
-
-@media (max-width: 400px) {
-    .card {
-        max-width: 80px;
-    }
-    .card .imagee img {
-        max-height: 110px;
-    }
-    .card h4 {
-        font-size: 8px; 
-    }
-}
-
-                </style>
-                <div class="movies">
-                    ${movies
-                      .map(
-                        (movie) => ` 
-                        <a href="movie-detail.html?id=${movie.id}" class="card">
-                            <div class="imagee">
-                                <img
-                                src="${movie.posterUrl}" alt="${movie.title}"
-                                />
-                            </div>
-                            <h4>${movie.title}</h4>
-                        </a>
-                        
-                    `
-                      )
-                      .join("")}
-                </div>
-            `;
+    /* Responsive styles (unchanged) */
+    @media (max-width: 1200px) { .card { max-width: 160px; } }
+    @media (max-width: 992px) { .card { max-width: 140px; } }
+    @media (max-width: 768px) { .card { max-width: 120px; } }
+    @media (max-width: 576px) { .card { max-width: 100px; } }
+    @media (max-width: 400px) { .card { max-width: 80px; } }
+  </style>
+  <div class="movies">
+    ${movies
+      .map(
+        (movie) => ` 
+        <div class="card">
+          <div class="imagee">
+            <img src="${movie.posterUrl}" alt="${movie.title}" />
+          </div>
+          <h4>${movie.title}</h4>
+          <button class="watchlist-btn" data-id="${movie.id}">
+            Жагсаалтанд нэмэх
+          </button>
+        </div>
+      `
+      )
+      .join("")}
+  </div>
+`;
     }
   }
 }

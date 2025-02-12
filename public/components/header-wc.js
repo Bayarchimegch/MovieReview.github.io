@@ -51,6 +51,7 @@ nav{
 header li {
     margin-left: 20px;
     margin-right: 20px;
+   
     color: var(--textPrimary);
     font-weight: bold;
 }
@@ -58,6 +59,7 @@ header li a {
     border-radius: 15px;
     color: var(--textPrimary);
     text-decoration: none;
+    
     display: flex;
     align-items: center;
 }
@@ -72,8 +74,10 @@ section {
     border-radius: 15px;
     height: 30px;
     width: 400px;
+    padding-left: 20px;
     display: flex;
     align-items: center;
+    
 }
 header li a:active {
     background-color: rgb(84, 75, 75);
@@ -340,8 +344,26 @@ header nav label{
             <ul class="main-menu">  
                 <li><a href="movies.html">Кино</a></li>
             </ul>
+            <ul class="watchlist">  
+          <li>
+            <a href="profile.html">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="24" height="24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" style="margin-left: 0.5rem;">
+                <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
+                <path d="M8 4l0 16"></path>
+                <path d="M16 4l0 16"></path>
+                <path d="M4 8l4 0"></path>
+                <path d="M4 16l4 0"></path>
+                <path d="M4 12l16 0"></path>
+                <path d="M16 8l4 0"></path>
+                <path d="M16 16l4 0"></path>
+              </svg>
+               
+            </a>
+          </li>
+        </ul>
             <ul class="right">
-                <li class="search"><input type="text" class="search" id="searchInput" placeholder="Хайх"></li> 
+                <li class="search" "><input type="text" class="search"  id="searchInput" placeholder="Хайх"></li> 
                 <li><a href="contact.html">Холбогдох</a></li> 
                 <li id="authLink"><a href="log-in.html">Нэвтрэх</a></li>
             </ul>
